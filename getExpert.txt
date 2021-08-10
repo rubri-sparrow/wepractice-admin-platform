@@ -394,6 +394,24 @@ window.addEventListener('load', read_dato);
                             document.getElementById(textID).innerText = selectedOpt.join(', ');
                             return false;
                         });
+
+                            // Restrict number of specilization inputs
+                            const inputChecksAllowed = 20
+                            $('#specializationSelect option').mousedown(function(e){
+                            let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
+                            let filteredArray = specializationOptions.filter( item => item.selected === true )
+                            if(filteredArray.length >= inputChecksAllowed) {
+                                specializationOptions.forEach(opt => {
+                                    if(opt.selected === false) {
+                                        opt.disabled = true
+                                    }
+                                })
+                            } else {
+                                specializationOptions.forEach(opt => {
+                                    opt.disabled = false
+                                    })
+                                 }
+                            });
                         
                         
                     })
