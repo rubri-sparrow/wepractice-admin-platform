@@ -396,12 +396,12 @@ window.addEventListener('load', read_dato);
                             return false;
                         });
 
-                            // Restrict number of specilization inputs
-                            const inputChecksAllowed = 20
+                            // Restrict number of specilization selected by user
                             $('#specializationSelect option').mousedown(function(e){
+                            const inputChecksAllowedSpecialization = 20
                             let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
                             let filteredArray = specializationOptions.filter( item => item.selected === true )
-                            if(filteredArray.length >= inputChecksAllowed) {
+                            if(filteredArray.length >= inputChecksAllowedSpecialization) {
                                 specializationOptions.forEach(opt => {
                                     if(opt.selected === false) {
                                         opt.disabled = true
@@ -409,6 +409,42 @@ window.addEventListener('load', read_dato);
                                 })
                             } else {
                                 specializationOptions.forEach(opt => {
+                                    opt.disabled = false
+                                    })
+                                 }
+                            });
+
+                            // Restrict number of methods selected by user
+                            $('#methodsSelect option').mousedown(function(e){
+                            const inputChecksAllowedMethods = 20
+                            let methodsOptions = Array.from(document.getElementById('methodsSelect').options)
+                            let filteredArray = methodsOptions.filter( item => item.selected === true )
+                            if(filteredArray.length >= inputChecksAllowedMethods) {
+                                methodsOptions.forEach(opt => {
+                                    if(opt.selected === false) {
+                                        opt.disabled = true
+                                    }
+                                })
+                            } else {
+                                methodsOptions.forEach(opt => {
+                                    opt.disabled = false
+                                    })
+                                 }
+                            });
+
+                            // Restrict number of goals selected by user
+                            $('#goalsSelect option').mousedown(function(e){
+                            const inputChecksAllowedGoals = 15
+                            let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
+                            let filteredArray = goalsOptions.filter( item => item.selected === true )
+                            if(filteredArray.length >= inputChecksAllowedGoals) {
+                                goalsOptions.forEach(opt => {
+                                    if(opt.selected === false) {
+                                        opt.disabled = true
+                                    }
+                                })
+                            } else {
+                                goalsOptions.forEach(opt => {
                                     opt.disabled = false
                                     })
                                  }
