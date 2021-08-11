@@ -92,12 +92,12 @@ function write_dato() {
             // Check methodsSelectText multiselect & resticts user to max items that can be selected
             var maxNumberOfInputsAllowedMethods = 20
             fieldError = checkFieldDrop(methodsSelectText,methodsSelectBorder,methodsSelectError,fieldError);
-                if(maxNumberOfInputsAllowedMethods) {
-                    console.log('methods function 1')
+                if(!$('#methodsSelectText').is(':empty')) {
+                    console.log('methods function working 1')
                     let methodsOptions = Array.from(document.getElementById('methodsSelect').options)
                     let filteredArray = methodsOptions.filter( item => item.selected === true ).length
                     if(filteredArray) {
-                        console.log('methods function 2')
+                        console.log('methods function working 2')
                         fieldError = checkInputsSelected (
                             filteredArray, 
                             maxNumberOfInputsAllowedMethods, 
@@ -115,26 +115,21 @@ function write_dato() {
             // Check specializationSelectText multiselect & resticts user to max items that can be selected
             var maxNumberOfInputsAllowedSpecialization = 20
             if (divSpecializations.style.display == 'block'){
-                console.log('s function 1')
                 fieldError = checkFieldDrop(specializationSelectText,specializationSelectBorder,specializationSelectError,fieldError);
-                console.log(fieldError, 'spec field err')
-                if(maxNumberOfInputsAllowedSpecialization) {
-                    console.log('s function 2')
-                    let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
-                    let filteredArray = specializationOptions.filter( item => item.selected === true ).length
-                    if(filteredArray) {
-                        console.log('s function 3')
+                    if(!$('#specializationSelectText').is(':empty')) {
+                        let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
+                        let filteredArray = specializationOptions.filter( item => item.selected === true ).length
+                        if(filteredArray) {
                         fieldError = checkInputsSelected (
                             filteredArray, 
                             maxNumberOfInputsAllowedSpecialization, 
                             specializationSelectText,
                             specializationSelectBorder,
                             specializationSelectError,
-                            fieldError)
+                            fieldError
+                        )
+                        }
                     }
-
-                }
-              
             }
 
             console.log(fieldError, 's')
@@ -143,7 +138,7 @@ function write_dato() {
             var maxNumberOfInputsAllowedGoals = 15
             fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
             console.log(fieldError, 'spec field goals')
-                if(maxNumberOfInputsAllowedGoals) {
+                if(!$('#goalsSelectText').is(':empty')) {
                     ('G function 1')
                     let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
                     let filteredArray = goalsOptions.filter( item => item.selected === true ).length
@@ -303,7 +298,7 @@ function write_dato() {
                 profileUpdateButton.classList.remove('isdisabled');
                 profileUpdateButton.style.display = 'flex';
                 loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80749e3fb2e087c8eea1a_outline_check_circle_white_24dp.png';
-                loadingText.innerText = 'Dein Profil wurde erfolgreich aktualisiert. Bis Deine Ã„nderungen sichtbar sind, dauert es etwa 5 - 10 Minuten.';
+                loadingText.innerText = 'Dein Profil wurde erfolgreich aktualisiert. Bis Deine Änderungen sichtbar sind, dauert es etwa 5 - 10 Minuten.';
                 updateError.innerText = 'Dein Profil wurde erfolgreich aktualisiert.';
                 updateError.style.display = 'block';
                 updateError.style.color = successColor;

@@ -1,473 +1,332 @@
-window.addEventListener('load', read_dato);
-    function read_dato() {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                
-                loadingText.innerText = "Dein Profil wird geladen...";
-                var functions = firebase.app().functions('europe-west1');
+profileUpdateButton.addEventListener('click', write_dato);
 
-                //getExpertFieldsModels
-                var getExpertFieldsModels = functions.httpsCallable('getExpertFieldsModels');getExpertFieldsModels({environment: environmentGlobal})
-                .then((result) => {
-                    // Read result of the Cloud Function.
-                    if(comments){console.log(result.data);}
-                    var data = result.data;
-                    var modelData = result.data;
-
-                    //Gender Select
-                    var sortData = data.gender.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(gender => {
-                        let opt = document.createElement('option');
-                        opt.value = gender.id;
-                        opt.innerText += gender.name['de-CH'];
-                        genderSelect.appendChild(opt);
-                    });
-
-                    //Availability Select
-                    var sortData = data.therapist_availability.sort(function(a, b) {
-                        return a.availability['de-CH'] == b.availability['de-CH'] ? 0 : a.availability['de-CH'] < b.availability['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(availability => {
-                        let opt = document.createElement('option');
-                        opt.value = availability.id;
-                        opt.innerText += availability.availability['de-CH'];
-                        availabilitySelect.appendChild(opt);
-                    });
-
-                    //Native language Select
-                    var noneOpt = document.createElement('option');
-                    noneOpt.value = '0';
-                    noneOpt.innerText += 'keine Angabe';
-                    nativeLanguageSelect.appendChild(noneOpt);
-
-                    var sortData = data.therapist_language.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(language => {
-                        let opt = document.createElement('option');
-                        opt.value = language.id;
-                        opt.innerText += language.name['de-CH'];
-                        nativeLanguageSelect.appendChild(opt);
-                    });
-                    
-
-                    //Languages Multiselect
-                    var sortData = data.therapist_language.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(language => {
-                        let opt = document.createElement('option');
-                        opt.value = language.id;
-                        opt.innerText += language.name['de-CH'];
-                        languageSelect.appendChild(opt);
-                    });
-
-
-                    //Health insurance(s)
-                    var noneOpt = document.createElement('option');
-                    noneOpt.value = '0';
-                    noneOpt.innerText += 'Keine';
-                    insuranceSelect.appendChild(noneOpt);
-                    
-                    var sortData = data.therapist_health_insurance.sort(function(a, b) {
-                        if (a.id == "47621168" || a.id == "47615587"){return -1;}
-                        if (b.id == "47621168" || b.id == "47615587"){return 1;}
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    
-                    sortData.forEach(insurance => {
-                        let opt = document.createElement('option');
-                        opt.value = insurance.id;
-                        opt.innerText += insurance.name['de-CH'];
-                        insuranceSelect.appendChild(opt);
-                    });
-
-                    //Appointment types
-                    var sortData = data.appointment_type.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(appointment => {
-                        let opt = document.createElement('option');
-                        opt.value = appointment.id;
-                        opt.innerText += appointment.name['de-CH'];
-                        appointmentSelect.appendChild(opt);
-                    });
-
-                    //Client types
-                    var sortData = data.therapist_client.sort(function(a, b) {
-                        return a.client['de-CH'] == b.client['de-CH'] ? 0 : a.client['de-CH'] < b.client['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(child => {
-                        let opt = document.createElement('option');
-                        opt.value = child.id;
-                        opt.innerText += child.client['de-CH'];
-                        clientSelect.appendChild(opt);
-                    });
-
-                    //Memberships
-                    var noneOpt = document.createElement('option');
-                    noneOpt.value = '0';
-                    noneOpt.innerText += 'Keine';
-                    membershipSelect.appendChild(noneOpt);
-
-                    var sortData = data.therapist_membership.sort(function(a, b) {
-                        return a.membership == b.membership ? 0 : a.membership < b.membership ? -1 : 1;
-                    });
-                    sortData.forEach(child => {
-                        let opt = document.createElement('option');
-                        opt.value = child.id;
-                        opt.innerText += child.membership;
-                        membershipSelect.appendChild(opt);
-                    });
-
-                    //Methods
-                    var sortData = data.therapist_method.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(child => {
-                        let opt = document.createElement('option');
-                        opt.value = child.id;
-                        opt.innerText += child.name['de-CH'];
-                        methodsSelect.appendChild(opt);
-                    });
-
-                    //Goals
-                    var sortData = data.goal.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                    });
-                    sortData.forEach(child => {
-                        let opt = document.createElement('option');
-                        opt.value = child.id;
-                        opt.innerText += child.name['de-CH'];
-                        goalsSelect.appendChild(opt);
-                    });
-
-                    //Job Title Standardised
-                    var job = data.job_title_standardised;
-
-                    loadingText.innerText = "fast geschafft..."; 
-
-                    //getExpert
-                    var getExpert = functions.httpsCallable('getExpert');getExpert({environment: environmentGlobal})
-                    .then((result) => {
-                        // Read result of the Cloud Function.
-                        var data = result.data;
-                        if(comments){console.log(result.data);}
-                        // Show values in Imput fields
-                        nameField.value = data.name;
-                        emailField.value = data.email;
-                        phoneNumberField.value = data.phoneNumber;
-                        genderSelect.value = data.gender;
-                        jobTitleIndividualFieldDE.value = data.jobTitleIndividual['de-CH'];
-                        jobTitleIndividualFieldEN.value = data.jobTitleIndividual['en'];
-                        var sjob = [];
-                        job.forEach(opt => {
-                            if(data.jobTitleStandardised.includes(opt.id)){
-                                sjob.push(opt.jobTitle['de-CH']);
-                            }
-                        });
-                        
-
-
-                        jobTitleStandardisedField.value = sjob.join(', ');
-                        availabilitySelect.value = data.availability;
-                        experienceField.value = data.experience;
-
-                        //languageSelect multiselect
-                        var textDrop = [];
-                        Array.from(document.querySelector('#languageSelect').options).forEach(opt => {
-                            if( data.languages.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        languageSelectText.innerText = textDrop.join(', ');
-
-                        // nativelanguageSelect 
-                        if (data.nativeLanguage){
-                            nativeLanguageSelect.value = data.nativeLanguage;
-                        } else {
-                            nativeLanguageSelect.value = '0';
-                        }
-                        
-                        //healthInsuranceSelect multiselect
-                        var textDrop = [];
-                        Array.from(document.querySelector('#insuranceSelect').options).forEach(opt => {
-                            if( data.healthInsurances.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            } else if ((!Array.isArray(data.healthInsurances) || !data.healthInsurances.length) && opt.value == '0'){
-                                // Select 'Keine' if Health insurance is empty
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            }
-                        });
-                        insuranceSelectText.innerText = textDrop.join(', ');
-
-                        //Appointment types multiselect
-                        var textDrop = [];
-                        Array.from(document.querySelector('#appointmentSelect').options).forEach(opt => {
-                            if( data.appointmentTypes.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        appointmentSelectText.innerText = textDrop.join(', ');
-
-                        //Client types
-                        var textDrop = [];
-                        Array.from(document.querySelector('#clientSelect').options).forEach(opt => {
-                            if( data.clients.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        clientSelectText.innerText = textDrop.join(', ');
-
-                        //Memberships
-                        var textDrop = [];
-                        Array.from(document.querySelector('#membershipSelect').options).forEach(opt => {
-                            if( data.memberships.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            } else if ((!Array.isArray(data.memberships) || !data.memberships.length) && opt.value == '0'){
-                                // Select 'Keine' if membership is empty
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            }
-                        });
-                        membershipSelectText.innerText = textDrop.join(', ');
-
-                        //Methods
-                        var textDrop = [];
-                        Array.from(document.querySelector('#methodsSelect').options).forEach(opt => {
-                            if( data.methods.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        methodsSelectText.innerText = textDrop.join(', ');
-
-                        //Goals
-                        var textDrop = [];
-                        Array.from(document.querySelector('#goalsSelect').options).forEach(opt => {
-                            if( data.goals.includes(opt.value)){
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        goalsSelectText.innerText = textDrop.join(', ');
-
-                        //Disable if Coach
-                        divSpecializations.style.display = 'none';
-                        divGoals.style.display = 'none';
-                        // Dev and Prod value
-                        if (data.jobTitleStandardised.includes("40834082")||data.jobTitleStandardised.includes("22911498")) {divGoals.style.display = 'block';}
-                        if (data.jobTitleStandardised.includes("40834083")||data.jobTitleStandardised.includes("24249336")) {divSpecializations.style.display = 'block';} 
-                        if (data.jobTitleStandardised.includes("40834081")||data.jobTitleStandardised.includes("22911497")) {divSpecializations.style.display = 'block';} 
-                        if (data.jobTitleStandardised.includes("40834088")||data.jobTitleStandardised.includes("25650536")) {divSpecializations.style.display = 'block';} 
-
-                        //Specializations
-                        var sortData = modelData.specialisation.sort(function(a, b) {
-                        return a.name['de-CH'] == b.name['de-CH'] ? 0 : a.name['de-CH'] < b.name['de-CH'] ? -1 : 1;
-                        });
-                        sortData.forEach(child => {
-                        let opt = document.createElement('option');
-                        opt.value = child.id;
-                        opt.innerText += child.name['de-CH'];
-                        if(child.heavy){
-                            if((data.jobTitleStandardised.includes("40834088")||data.jobTitleStandardised.includes("25650536"))){
-                                specializationSelect.appendChild(opt);
-                            }
-                        } else {
-                            specializationSelect.appendChild(opt)
-                            }
-                        });
-
-
-                        //Specializations
-                        var textDrop = [];
-                        Array.from(document.querySelector('#specializationSelect').options).forEach(opt => {
-                            if( data.specialisations.includes(opt.value)){
-
-                                opt.selected = true;
-                                opt.classList.add('optchecked');
-                                textDrop.push(opt.innerText);
-                            };
-                        });
-                        specializationSelectText.innerText = textDrop.join(', ');
-      
-                        aboutmeFieldDE.value = data.aboutMe['de-CH'];
-                        aboutmeFieldEN.value = data.aboutMe['en'];
-                        seoTitleFieldDE.value = data.seo['de-CH']['title'];
-                        seoTitleFieldEN.value = data.seo['en']['title'];
-                        seoDescriptionFieldDE.value = data.seo['de-CH']['description'];
-                        seoDescriptionFieldEN.value = data.seo['en']['description'];
-                        priceAmountFieldDE.value = data.price['de-CH'].match(/\d+/g)[0];
-                        priceMinutesFieldDE.value = data.price['de-CH'].match(/\d+/g)[1];
-                        tooltipPricingFieldDE.value = data.tooltipPricing['de-CH'];
-                        tooltipPricingFieldEN.value = data.tooltipPricing['en'];
-                        educationFieldDE.value = data.education['de-CH'];
-                        educationFieldEN.value = data.education['en'];
-                        avatarImage.src = data.avatar.url;
-                        if (data.audio['de-CH']){audioUrlDE.src = data.audio['de-CH']['url'];} else {voiceRemoveButtonDE.style.display = 'none';}
-                        if (data.audio['en']){audioUrlEN.src = data.audio['en']['url'];} else {voiceRemoveButtonEN.style.display = 'none';}
-                        //helper ID's
-                        avatarId.innerText = data.avatar.id;
-                        if (data.audio['de-CH']){voiceIdDE.innerText = data.audio['de-CH']['id'];}
-                        if (data.audio.en){voiceIdEN.innerText = data.audio.en.id;}
-
-                        profileUpdateButton.classList.remove('isdisabled');
-                        loadingScreen.style.display = 'none';
-
-                        // Update InsuranceSelect Dropdown
-                        $('#insuranceSelect option').mousedown(function(e){
-                            if (this.value == "0" || this.value == "47615587" || this.value == "47621168"){
-                                Array.from(document.getElementById('insuranceSelect').options).forEach(opt => {
-                                        opt.selected = false;
-                                        opt.classList.remove('optchecked');
-                                });
-                            } else {
-                                Array.from(document.getElementById('insuranceSelect').options).forEach(opt => {
-                                    if (opt.value == "0"  || opt.value == "47615587" || opt.value == "47621168"){
-                                        opt.selected = false;
-                                        opt.classList.remove('optchecked');
-                                    }    
-                                });
-                            }
-                            return false;
-                        });
-
-                        // Update Membership Dropdown
-                        $('#membershipSelect option').mousedown(function(e){
-                            if (this.value == "0"){
-                                Array.from(document.getElementById('membershipSelect').options).forEach(opt => {
-                                        opt.selected = false;
-                                        opt.classList.remove('optchecked');
-                                });
-                            } else {
-                                Array.from(document.getElementById('membershipSelect').options).forEach(opt => {
-                                    if (opt.value == "0"){
-                                        opt.selected = false;
-                                        opt.classList.remove('optchecked');
-                                    }    
-                                });
-                            }
-                            return false;
-                        });
-
-                        // select dropdown on click
-                        $('option').mousedown(function(e) {
-
-                            if ($(this).prop('selected')){
-                                this.classList.remove('optchecked');
-                            } else {
-                                this.classList.add('optchecked');
-                            }
-
-                            e.preventDefault();
-                            var originalScrollTop = $(this).parent().scrollTop();
-                            $(this).prop('selected', $(this).prop('selected') ? false : true);
-                            var self = this;
-                            $(this).parent().focus();
-                            setTimeout(function() {
-                                $(self).parent().scrollTop(originalScrollTop);
-                            }, 0);
-                            var selectedOpt = [];
-                            Array.from(document.getElementById(self.parentElement.id).options).forEach(opt => {
-                                if(opt.selected){
-                                    selectedOpt.push(opt.innerText);
-                                };
-                            });
-                            var textID = self.parentElement.id + "Text";
-                            document.getElementById(textID).innerText = selectedOpt.join(', ');
-                            return false;
-                        });
-
-                            // Restrict number of specilization selected by user
-                            $('#specializationSelect option').mousedown(function(e){
-                            const inputChecksAllowedSpecialization = 20
-                            let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
-                            let filteredArray = specializationOptions.filter( item => item.selected === true )
-                            if(filteredArray.length >= inputChecksAllowedSpecialization) {
-                                specializationOptions.forEach(opt => {
-                                    if(opt.selected === false) {
-                                        opt.disabled = true
-                                    }
-                                })
-                            } else {
-                                specializationOptions.forEach(opt => {
-                                    opt.disabled = false
-                                    })
-                                 }
-                            });
-
-                            // Restrict number of methods selected by user
-                            $('#methodsSelect option').mousedown(function(e){
-                            const inputChecksAllowedMethods = 20
-                            let methodsOptions = Array.from(document.getElementById('methodsSelect').options)
-                            let filteredArray = methodsOptions.filter( item => item.selected === true )
-                            if(filteredArray.length >= inputChecksAllowedMethods) {
-                                methodsOptions.forEach(opt => {
-                                    if(opt.selected === false) {
-                                        opt.disabled = true
-                                    }
-                                })
-                            } else {
-                                methodsOptions.forEach(opt => {
-                                    opt.disabled = false
-                                    })
-                                 }
-                            });
-
-                            // Restrict number of goals selected by user
-                            $('#goalsSelect option').mousedown(function(e){
-                            const inputChecksAllowedGoals = 15
-                            let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
-                            let filteredArray = goalsOptions.filter( item => item.selected === true )
-                            if(filteredArray.length >= inputChecksAllowedGoals) {
-                                goalsOptions.forEach(opt => {
-                                    if(opt.selected === false) {
-                                        opt.disabled = true
-                                    }
-                                })
-                            } else {
-                                goalsOptions.forEach(opt => {
-                                    opt.disabled = false
-                                    })
-                                 }
-                            });
-                        
-                        
-                    })
-                    .catch((error) => {
-                        // Getting the Error details.
-                        loadingText.innerText = 'Dein Profil konnte nicht geladen werden - aktualisiere die Webseite.';
-                        loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png';
-                        if(comments){console.log(error.code);}
-                        if(comments){console.log(error.message);}
-                        if(comments){console.log(error.details);}
-                    });
-                })
-                .catch((error) => {
-                    // Getting the Error details.
-                    loadingText.innerText = 'Dein Profil konnte nicht geladen werden - aktualisiere die Webseite.';
-                    loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png';
-                    if(comments){console.log(error.code);}
-                    if(comments){console.log(error.message);}
-                    if(comments){console.log(error.details);}
-                });
-            } 
-        });
+function checkField(field,fieldMessage,fieldError){
+    if (field.value == "") {
+        field.classList.add('borderError');
+        fieldMessage.style.display = 'block';
+        fieldMessage.innerText = 'Pflichtfeld';
+        fieldError = true;
     }
+    return fieldError;
+}
+
+function checkFieldDrop(fieldText,field,fieldMessage,fieldError){
+    if (fieldText.innerText == "") {
+        field.classList.add('borderError');
+        fieldMessage.style.display = 'block';
+        fieldMessage.innerText = 'Pflichtfeld';
+        fieldError = true;
+    }
+    return fieldError;
+}
+
+function checkInputsSelected (inputsSelected, numberRestriction, fieldText,field,fieldMessage,fieldError) {
+    if(inputsSelected > numberRestriction) {
+        field.classList.add('borderError');
+        fieldMessage.style.display =  'block';
+        fieldMessage.innerText = 'Maximale Auswahl überschritten';
+        fieldError = true;
+    }
+    return fieldError;
+}
+
+function removeError(){
+    $('.borderError').mousedown(function(e){
+        this.classList.remove('borderError');
+        updateError.style.display ='none';
+        var messageDrop = '';
+        var message = '';
+        // id + Error
+        message = document.getElementById(this.id + 'Error');
+        if (message){
+        message.style.display = 'none';
+        return;
+        } 
+        // id - 'Border' + Error
+        messageDrop = document.getElementById(this.id.slice(0, -6) + 'Error');
+        if (messageDrop){
+        messageDrop.style.display = 'none';
+        return;
+        }
+
+        if (this.id == 'priceAmountFieldDE'){priceError.style.display = 'none';}
+        if (this.id == 'priceMinutesFieldDE'){priceError.style.display = 'none';}
+    });
+}
+
+function write_dato() {
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            //updateExpert
+            var fieldError = false;
+            
+            // Check aboutmeFieldDE
+            fieldError = checkField(aboutmeFieldDE,aboutmeFieldDEError,fieldError);
+
+            // Check aboutmeFieldEN
+            fieldError = checkField(aboutmeFieldEN,aboutmeFieldENError,fieldError);
+
+            // Check jobTitleIndividualFieldDE
+            fieldError = checkField(jobTitleIndividualFieldDE,jobTitleIndividualFieldDEError,fieldError);
+
+            // Check jobTitleIndividualFieldEN
+            fieldError = checkField(jobTitleIndividualFieldEN,jobTitleIndividualFieldENError,fieldError);
+
+            // Check genderSelect
+            fieldError = checkField(genderSelect,genderSelectError,fieldError);
+
+            // Check languageSelectText dropdown
+            fieldError = checkFieldDrop(languageSelectText,languageSelectBorder,languageSelectError,fieldError);
+
+            // Check nativeLanguageSelect
+            fieldError = checkField(nativeLanguageSelect,nativeLanguageSelectError,fieldError);
+
+            // Check educationFieldDE
+            fieldError = checkField(educationFieldDE,educationFieldDEError,fieldError);
+
+            // Check educationFieldEN
+            fieldError = checkField(educationFieldEN,educationFieldENError,fieldError);
+
+            // Check methodsSelectText multiselect & resticts user to max items that can be selected
+            var maxNumberOfInputsAllowedMethods = 20
+            fieldError = checkFieldDrop(methodsSelectText,methodsSelectBorder,methodsSelectError,fieldError);
+                if($('#methodsSelectText').is(':empty')) {
+                    let methodsOptions = Array.from(document.getElementById('methodsSelect').options)
+                    let filteredArray = methodsOptions.filter( item => item.selected === true ).length
+                    if(filteredArray) {
+                        console.log('methods function 2')
+                        fieldError = checkInputsSelected (
+                            filteredArray, 
+                            maxNumberOfInputsAllowedMethods, 
+                            methodsSelectText,
+                            methodsSelectBorder,
+                            methodsSelectError,
+                            fieldError)
+                    }
+
+            }
+
+            console.log(fieldError, 'methods')
+            
+
+            // Check specializationSelectText multiselect & resticts user to max items that can be selected
+            var maxNumberOfInputsAllowedSpecialization = 20
+            if (divSpecializations.style.display == 'block'){
+                fieldError = checkFieldDrop(specializationSelectText,specializationSelectBorder,specializationSelectError,fieldError);
+                    if($('#specializationSelectText').is(':empty')) {
+                        let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
+                        let filteredArray = specializationOptions.filter( item => item.selected === true ).length
+                        if(filteredArray) {
+                        fieldError = checkInputsSelected (
+                            filteredArray, 
+                            maxNumberOfInputsAllowedSpecialization, 
+                            specializationSelectText,
+                            specializationSelectBorder,
+                            specializationSelectError,
+                            fieldError
+                        )
+                        }
+                    }
+            }
+
+            console.log(fieldError, 's')
+
+            // Check goalsSelectText multiselect & resticts user to max items that can be selected
+            var maxNumberOfInputsAllowedGoals = 15
+            fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
+            console.log(fieldError, 'spec field goals')
+                if($('#goalsSelectText').is(':empty')) {
+                    ('G function 1')
+                    let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
+                    let filteredArray = goalsOptions.filter( item => item.selected === true ).length
+                    if(filteredArray) {
+                        ('G function 2')
+                        fieldError = checkInputsSelected (
+                            filteredArray, 
+                            maxNumberOfInputsAllowedGoals, 
+                            goalsSelectText,
+                            goalsSelectBorder,
+                            goalsSelectError,
+                            fieldError)
+                    }
+                }
+
+                console.log(fieldError, 'goals')
+            
+            // Check goalsSelectText multiselect
+            if (divGoals.style.display == 'block'){
+                fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
+            }
+            
+            // Check appointmentSelectText multiselect
+            fieldError = checkFieldDrop(appointmentSelectText,appointmentSelectBorder,appointmentSelectError,fieldError);
+
+            // Check clientSelectText multiselect
+            fieldError = checkFieldDrop(clientSelectText,clientSelectBorder,clientSelectError,fieldError);
+
+            // Check tooltipPricingFieldDE not required
+            // Check tooltipPricingFieldEN not required
+
+            // Check insuranceSelectText multiselect
+            fieldError = checkFieldDrop(insuranceSelectText,insuranceSelectBorder,insuranceSelectError,fieldError);
+
+            // Check seoDescriptionFieldDE
+            fieldError = checkField(seoDescriptionFieldDE,seoDescriptionFieldDEError,fieldError);
+
+            // Check seoDescriptionFieldEN
+            fieldError = checkField(seoDescriptionFieldEN,seoDescriptionFieldENError,fieldError);
+
+            // Check Pricing CHF
+            fieldError = checkField(priceAmountFieldDE,priceError,fieldError);
+
+            // Check Pricing Minutes
+            fieldError = checkField(priceMinutesFieldDE,priceError,fieldError);
+
+            // Check Phone Number
+            if (isNaN(phoneNumberField.value) || phoneNumberField.value.length < 10) {
+                phoneNumberField.classList.add('borderError');
+                phoneNumberFieldError.style.display = 'block';
+                phoneNumberFieldError.innerText = 'Keine gültige Telefonnummer';
+                fieldError = true;
+            }
+
+            // Check Availability
+            fieldError = checkField(availabilitySelect,availabilitySelectError,fieldError);
+
+            // Check Experience
+            if (experienceField.value > 60 || experienceField.value.length == "") {
+                experienceField.classList.add('borderError');
+                experienceFieldError.style.display = 'block';
+                experienceFieldError.innerText = 'Pflichtfeld (max. 60 Jahre)';
+                fieldError = true;
+            }
+
+            //Raise if field error
+            if (fieldError){
+                updateError.innerText = 'Profil konnte nicht aktuallisiert werden.';
+                updateError.style.display = 'block';
+                updateError.style.color = errorColor;
+                // Error Reset function
+                removeError();
+                return;
+            }
+
+            // Set native Language
+            var natLang = '';
+            if (nativeLanguageSelect.value == '0' || nativeLanguageSelect.value == ''){natLang = null} else {natLang=nativeLanguageSelect.value}
+
+            // Create Price
+            var priceDE = 'Einzelsitzung ' + 'CHF ' + priceAmountFieldDE.value + ' / ' + priceMinutesFieldDE.value + ' Minuten';
+            var priceEN = 'Individual session ' + 'CHF ' + priceAmountFieldDE.value + ' / ' + priceMinutesFieldDE.value + ' minutes';
+
+            // If healthInsurances is 'Keine' send no value
+            var healthIns = [...insuranceSelect.options].flatMap(obj => obj.selected ? obj.value : []);
+            if (healthIns.includes('0')){
+                healthIns = [];
+            }
+
+            // If memberships is 'Keine' send no value
+            var memberIns = [...membershipSelect.options].flatMap(obj => obj.selected ? obj.value : []);
+            if (memberIns.includes('0')){
+                memberIns = [];
+            }
+
+            if(comments){console.log('No field error, update profile...');}
+            loadingScreen.style.display = 'flex';
+            profileUpdateButton.classList.add('isdisabled');
+            profileUpdateButton.innerText = 'aktualisieren...'
+            loadingText.innerText = "Dein Profil wird aktualisiert...";
+            loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60f9628a525d319dac6bad70_Spinner-1s-200px.svg';
+
+            var functions = firebase.app().functions('europe-west1');
+            var updateExpert = functions.httpsCallable('updateExpert');updateExpert({
+                environment: environmentGlobal,
+                data: {
+                    phoneNumber: phoneNumberField.value,
+                    nativeLanguage: natLang,
+                    price: {
+                        'de-CH': priceDE,
+                        en: priceEN
+                    },
+                    gender: genderSelect.value,
+                    experience: experienceField.value,
+                    availability: availabilitySelect.value,
+                    goals: [...goalsSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    specialisations: [...specializationSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    memberships: memberIns,
+                    clients: [...clientSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    methods: [...methodsSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    appointmentTypes: [...appointmentSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    healthInsurances: healthIns,
+                    languages: [...languageSelect.options].flatMap(obj => obj.selected ? obj.value : []),
+                    tooltipPricing: {
+                        'de-CH': tooltipPricingFieldDE.value,
+                        en: tooltipPricingFieldEN.value
+                    },
+                    education: {
+                        'de-CH': educationFieldDE.value,
+                        en: educationFieldEN.value
+                    },
+                    jobTitleIndividual:{
+                        'de-CH' : jobTitleIndividualFieldDE.value,
+                        en : jobTitleIndividualFieldEN.value
+                    },
+                    seo:{
+                        'de-CH':{
+                            description: seoDescriptionFieldDE.value,
+                            title: seoTitleFieldDE.value,
+                            twitterCard: "summary"
+                        },
+                        en:{
+                            description: seoDescriptionFieldEN.value,
+                            title: seoTitleFieldEN.value,
+                            twitterCard: "summary"
+                        }
+                    },
+                    aboutMe: {
+                            en: aboutmeFieldEN.value,
+                            'de-CH': aboutmeFieldDE.value
+                        },
+                    }
+            })
+            .then((result) => {
+                
+                profileUpdateButton.innerText = 'Profil aktualisieren';
+                profileUpdateButton.classList.remove('isdisabled');
+                profileUpdateButton.style.display = 'flex';
+                loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80749e3fb2e087c8eea1a_outline_check_circle_white_24dp.png';
+                loadingText.innerText = 'Dein Profil wurde erfolgreich aktualisiert. Bis Deine Änderungen sichtbar sind, dauert es etwa 5 - 10 Minuten.';
+                updateError.innerText = 'Dein Profil wurde erfolgreich aktualisiert.';
+                updateError.style.display = 'block';
+                updateError.style.color = successColor;
+                if(comments){console.log("Update completed");}
+                setTimeout(function (){
+                    loadingScreen.style.display = 'none';
+                }, 5000);
+
+            })
+            .catch((error) => {
+                // Getting the Error details.
+                if(comments){console.log("Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.")}
+                if(comments){console.log(error.code);}
+                if(comments){console.log(error.message);}
+                if(comments){console.log(error.details);}
+                profileUpdateButton.style.display = 'flex';
+                loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png';
+                loadingText.innerText = 'Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.';
+                updateError.innerText = "Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.";
+                updateError.style.display = 'block';
+                updateError.style.color = errorColor;
+                setTimeout(function (){
+                    loadingScreen.style.display = 'none';
+                }, 5000);
+                
+            });
+            
+        } else {
+            // No user is signed in.
+            if(comments){console.log('No user')}
+        }
+    });
+}
