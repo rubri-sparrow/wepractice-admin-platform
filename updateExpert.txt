@@ -134,10 +134,10 @@ function write_dato() {
             console.log(fieldError, 's')
 
             // Check goalsSelectText multiselect & resticts user to max items that can be selected
-            var maxNumberOfInputsAllowedGoals = 15
-            fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
+            var maxNumberOfInputsAllowedGoals = 15;
             console.log(fieldError, 'spec field goals')
-                if(!$('#goalsSelectText').is(':empty')) {
+                if(divGoals.style.display === 'block') {
+                    fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
                     ('G function 1')
                     let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
                     let filteredArray = goalsOptions.filter( item => item.selected === true ).length
