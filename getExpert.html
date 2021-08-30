@@ -402,7 +402,6 @@
                   document.querySelector("#specializationSelect").options
                 ).forEach((opt) => {
                   if (data.specialisations.includes(opt.value)) {
-                    opt.id = clicky;
                     opt.selected = true;
                     opt.classList.add("optchecked");
                     textDrop.push(opt.innerText);

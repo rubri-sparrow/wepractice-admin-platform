@@ -497,67 +497,62 @@
                 });
 
                 // select dropdown on click
-                // $("option").mousedown(function (e) {
-                //   if ($(this).prop("selected")) {
-                //     this.classList.remove("optchecked");
-                //   } else {
-                //     this.classList.add("optchecked");
-                //   }
+                $("option").mousedown(function (e) {
+                  if ($(this).prop("selected")) {
+                    this.classList.remove("optchecked");
+                  } else {
+                    this.classList.add("optchecked");
+                  }
 
-                //   e.preventDefault();
-                //   var originalScrollTop = $(this).parent().scrollTop();
-                //   $(this).prop(
-                //     "selected",
-                //     $(this).prop("selected") ? false : true
-                //   );
-                //   var self = this;
-                //   $(this).parent().focus();
-                //   setTimeout(function () {
-                //     $(self).parent().scrollTop(originalScrollTop);
-                //   }, 0);
-                //   var selectedOpt = [];
-                //   Array.from(
-                //     document.getElementById(self.parentElement.id).options
-                //   ).forEach((opt) => {
-                //     if (opt.selected) {
-                //       selectedOpt.push(opt.innerText);
-                //     }
-                //   });
-                //   var textID = self.parentElement.id + "Text";
-                //   document.getElementById(textID).innerText =
-                //     selectedOpt.join(", ");
-                //   return false;
-                // });
+                  e.preventDefault();
+                  var originalScrollTop = $(this).parent().scrollTop();
+                  $(this).prop(
+                    "selected",
+                    $(this).prop("selected") ? false : true
+                  );
+                  var self = this;
+                  $(this).parent().focus();
+                  setTimeout(function () {
+                    $(self).parent().scrollTop(originalScrollTop);
+                  }, 0);
+                  var selectedOpt = [];
+                  Array.from(
+                    document.getElementById(self.parentElement.id).options
+                  ).forEach((opt) => {
+                    if (opt.selected) {
+                      selectedOpt.push(opt.innerText);
+                    }
+                  });
+                  var textID = self.parentElement.id + "Text";
+                  document.getElementById(textID).innerText =
+                    selectedOpt.join(", ");
+                  return false;
+                });
 
                 // Restrict number of specilization selected by user
-                $("#specializationSelect option").bind(
-                  "vmousedown",
-                  function (e) {
-                    if (e.cancelable) {
-                      e.preventDefault();
-                    }
-                    const inputChecksAllowedSpecialization = 20;
-                    let specializationOptions = Array.from(
-                      document.getElementById("specializationSelect").options
-                    );
-                    let filteredArray = specializationOptions.filter(
-                      (item) => item.selected === true
-                    );
-                    if (
-                      filteredArray.length >= inputChecksAllowedSpecialization
-                    ) {
-                      specializationOptions.forEach((opt) => {
-                        if (opt.selected === false) {
-                          opt.disabled = true;
-                        }
-                      });
-                    } else {
-                      specializationOptions.forEach((opt) => {
-                        opt.disabled = false;
-                      });
-                    }
+
+                $("#specializationSelect option").mousedown(function (e) {
+                  const inputChecksAllowedSpecialization = 20;
+                  let specializationOptions = Array.from(
+                    document.getElementById("specializationSelect").options
+                  );
+                  let filteredArray = specializationOptions.filter(
+                    (item) => item.selected === true
+                  );
+                  if (
+                    filteredArray.length >= inputChecksAllowedSpecialization
+                  ) {
+                    specializationOptions.forEach((opt) => {
+                      if (opt.selected === false) {
+                        opt.disabled = true;
+                      }
+                    });
+                  } else {
+                    specializationOptions.forEach((opt) => {
+                      opt.disabled = false;
+                    });
                   }
-                );
+                });
 
                 // Restrict number of methods selected by user
                 $("#methodsSelect option").mousedown(function (e) {
