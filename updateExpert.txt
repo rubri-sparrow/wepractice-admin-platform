@@ -1,333 +1,482 @@
-profileUpdateButton.addEventListener('click', write_dato);
+profileUpdateButton.addEventListener("click", write_dato);
 
-function checkField(field,fieldMessage,fieldError){
+  function checkField(field, fieldMessage, fieldError) {
     if (field.value == "") {
-        field.classList.add('borderError');
-        fieldMessage.style.display = 'block';
-        fieldMessage.innerText = 'Pflichtfeld';
-        fieldError = true;
+      field.classList.add("borderError");
+      fieldMessage.style.display = "block";
+      fieldMessage.innerText = "Pflichtfeld";
+      fieldError = true;
     }
     return fieldError;
-}
+  }
 
-function checkFieldDrop(fieldText,field,fieldMessage,fieldError){
+  function checkFieldDrop(fieldText, field, fieldMessage, fieldError) {
     if (fieldText.innerText == "") {
-        field.classList.add('borderError');
-        fieldMessage.style.display = 'block';
-        fieldMessage.innerText = 'Pflichtfeld';
-        fieldError = true;
+      field.classList.add("borderError");
+      fieldMessage.style.display = "block";
+      fieldMessage.innerText = "Pflichtfeld";
+      fieldError = true;
     }
     return fieldError;
-}
+  }
 
-function checkInputsSelected (inputsSelected, numberRestriction, fieldText,field,fieldMessage,fieldError) {
-    if(inputsSelected > numberRestriction) {
-        field.classList.add('borderError');
-        fieldMessage.style.display =  'block';
-        fieldMessage.innerText = 'Maximale Auswahl überschritten';
-        fieldError = true;
+  function checkInputsSelected(
+    inputsSelected,
+    numberRestriction,
+    fieldText,
+    field,
+    fieldMessage,
+    fieldError
+  ) {
+    if (inputsSelected > numberRestriction) {
+      field.classList.add("borderError");
+      fieldMessage.style.display = "block";
+      fieldMessage.innerText = "Maximale Auswahl überschritten";
+      fieldError = true;
     }
     return fieldError;
-}
+  }
 
-function removeError(){
-    $('.borderError').mousedown(function(e){
-        this.classList.remove('borderError');
-        updateError.style.display ='none';
-        var messageDrop = '';
-        var message = '';
-        // id + Error
-        message = document.getElementById(this.id + 'Error');
-        if (message){
-        message.style.display = 'none';
+  function removeError() {
+    $(".borderError").mousedown(function (e) {
+      this.classList.remove("borderError");
+      updateError.style.display = "none";
+      var messageDrop = "";
+      var message = "";
+      // id + Error
+      message = document.getElementById(this.id + "Error");
+      if (message) {
+        message.style.display = "none";
         return;
-        } 
-        // id - 'Border' + Error
-        messageDrop = document.getElementById(this.id.slice(0, -6) + 'Error');
-        if (messageDrop){
-        messageDrop.style.display = 'none';
+      }
+      // id - 'Border' + Error
+      messageDrop = document.getElementById(this.id.slice(0, -6) + "Error");
+      if (messageDrop) {
+        messageDrop.style.display = "none";
         return;
+      }
+
+      if (this.id == "priceAmountFieldDE") {
+        priceError.style.display = "none";
+      }
+      if (this.id == "priceMinutesFieldDE") {
+        priceError.style.display = "none";
+      }
+    });
+  }
+
+  function write_dato() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        //updateExpert
+        var fieldError = false;
+
+        // Check aboutmeFieldDE
+        fieldError = checkField(
+          aboutmeFieldDE,
+          aboutmeFieldDEError,
+          fieldError
+        );
+
+        // Check aboutmeFieldEN
+        fieldError = checkField(
+          aboutmeFieldEN,
+          aboutmeFieldENError,
+          fieldError
+        );
+
+        // Check jobTitleIndividualFieldDE
+        fieldError = checkField(
+          jobTitleIndividualFieldDE,
+          jobTitleIndividualFieldDEError,
+          fieldError
+        );
+
+        // Check jobTitleIndividualFieldEN
+        fieldError = checkField(
+          jobTitleIndividualFieldEN,
+          jobTitleIndividualFieldENError,
+          fieldError
+        );
+
+        // Check genderSelect
+        fieldError = checkField(genderSelect, genderSelectError, fieldError);
+
+        // Check languageSelectText dropdown
+        fieldError = checkFieldDrop(
+          languageSelectText,
+          languageSelectBorder,
+          languageSelectError,
+          fieldError
+        );
+
+        // Check nativeLanguageSelect
+        fieldError = checkField(
+          nativeLanguageSelect,
+          nativeLanguageSelectError,
+          fieldError
+        );
+
+        // Check educationFieldDE
+        fieldError = checkField(
+          educationFieldDE,
+          educationFieldDEError,
+          fieldError
+        );
+
+        // Check educationFieldEN
+        fieldError = checkField(
+          educationFieldEN,
+          educationFieldENError,
+          fieldError
+        );
+
+        // Check methodsSelectText multiselect & resticts user to max items that can be selected
+        var maxNumberOfInputsAllowedMethods = 20;
+        fieldError = checkFieldDrop(
+          methodsSelectText,
+          methodsSelectBorder,
+          methodsSelectError,
+          fieldError
+        );
+        if (!$("#methodsSelectText").is(":empty")) {
+          let methodsOptions = Array.from(
+            document.getElementById("methodsSelect").options
+          );
+          let filteredArray = methodsOptions.filter(
+            (item) => item.selected === true
+          ).length;
+          if (filteredArray) {
+            fieldError = checkInputsSelected(
+              filteredArray,
+              maxNumberOfInputsAllowedMethods,
+              methodsSelectText,
+              methodsSelectBorder,
+              methodsSelectError,
+              fieldError
+            );
+          }
         }
 
-        if (this.id == 'priceAmountFieldDE'){priceError.style.display = 'none';}
-        if (this.id == 'priceMinutesFieldDE'){priceError.style.display = 'none';}
-    });
-}
-
-function write_dato() {
-
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            //updateExpert
-            var fieldError = false;
-            
-            // Check aboutmeFieldDE
-            fieldError = checkField(aboutmeFieldDE,aboutmeFieldDEError,fieldError);
-
-            // Check aboutmeFieldEN
-            fieldError = checkField(aboutmeFieldEN,aboutmeFieldENError,fieldError);
-
-            // Check jobTitleIndividualFieldDE
-            fieldError = checkField(jobTitleIndividualFieldDE,jobTitleIndividualFieldDEError,fieldError);
-
-            // Check jobTitleIndividualFieldEN
-            fieldError = checkField(jobTitleIndividualFieldEN,jobTitleIndividualFieldENError,fieldError);
-
-            // Check genderSelect
-            fieldError = checkField(genderSelect,genderSelectError,fieldError);
-
-            // Check languageSelectText dropdown
-            fieldError = checkFieldDrop(languageSelectText,languageSelectBorder,languageSelectError,fieldError);
-
-            // Check nativeLanguageSelect
-            fieldError = checkField(nativeLanguageSelect,nativeLanguageSelectError,fieldError);
-
-            // Check educationFieldDE
-            fieldError = checkField(educationFieldDE,educationFieldDEError,fieldError);
-
-            // Check educationFieldEN
-            fieldError = checkField(educationFieldEN,educationFieldENError,fieldError);
-
-            // Check methodsSelectText multiselect & resticts user to max items that can be selected
-            var maxNumberOfInputsAllowedMethods = 20
-            fieldError = checkFieldDrop(methodsSelectText,methodsSelectBorder,methodsSelectError,fieldError);
-                if(!$('#methodsSelectText').is(':empty')) {
-                    console.log('methods function working 1')
-                    let methodsOptions = Array.from(document.getElementById('methodsSelect').options)
-                    let filteredArray = methodsOptions.filter( item => item.selected === true ).length
-                    if(filteredArray) {
-                        console.log('methods function working 2')
-                        fieldError = checkInputsSelected (
-                            filteredArray, 
-                            maxNumberOfInputsAllowedMethods, 
-                            methodsSelectText,
-                            methodsSelectBorder,
-                            methodsSelectError,
-                            fieldError)
-                    }
-
+        // Check specializationSelectText multiselect & resticts user to max items that can be selected
+        var maxNumberOfInputsAllowedSpecialization = 20;
+        if (divSpecializations.style.display == "block") {
+          fieldError = checkFieldDrop(
+            specializationSelectText,
+            specializationSelectBorder,
+            specializationSelectError,
+            fieldError
+          );
+          if (!$("#specializationSelectText").is(":empty")) {
+            let specializationOptions = Array.from(
+              document.getElementById("specializationSelect").options
+            );
+            let filteredArray = specializationOptions.filter(
+              (item) => item.selected === true
+            ).length;
+            if (filteredArray) {
+              fieldError = checkInputsSelected(
+                filteredArray,
+                maxNumberOfInputsAllowedSpecialization,
+                specializationSelectText,
+                specializationSelectBorder,
+                specializationSelectError,
+                fieldError
+              );
             }
+          }
+        }
 
-            console.log(fieldError, 'methods')
-            
+        // Check goalsSelectText multiselect & resticts user to max items that can be selected
+        var maxNumberOfInputsAllowedGoals = 15;
+        if (divGoals.style.display === "block") {
+          fieldError = checkFieldDrop(
+            goalsSelectText,
+            goalsSelectBorder,
+            goalsSelectError,
+            fieldError
+          );
+          let goalsOptions = Array.from(
+            document.getElementById("goalsSelect").options
+          );
+          let filteredArray = goalsOptions.filter(
+            (item) => item.selected === true
+          ).length;
+          if (filteredArray) {
+            fieldError = checkInputsSelected(
+              filteredArray,
+              maxNumberOfInputsAllowedGoals,
+              goalsSelectText,
+              goalsSelectBorder,
+              goalsSelectError,
+              fieldError
+            );
+          }
+        }
 
-            // Check specializationSelectText multiselect & resticts user to max items that can be selected
-            var maxNumberOfInputsAllowedSpecialization = 20
-            if (divSpecializations.style.display == 'block'){
-                fieldError = checkFieldDrop(specializationSelectText,specializationSelectBorder,specializationSelectError,fieldError);
-                    if(!$('#specializationSelectText').is(':empty')) {
-                        let specializationOptions = Array.from(document.getElementById('specializationSelect').options)
-                        let filteredArray = specializationOptions.filter( item => item.selected === true ).length
-                        if(filteredArray) {
-                        fieldError = checkInputsSelected (
-                            filteredArray, 
-                            maxNumberOfInputsAllowedSpecialization, 
-                            specializationSelectText,
-                            specializationSelectBorder,
-                            specializationSelectError,
-                            fieldError
-                        )
-                        }
-                    }
-            }
+        // Check goalsSelectText multiselect
+        if (divGoals.style.display == "block") {
+          fieldError = checkFieldDrop(
+            goalsSelectText,
+            goalsSelectBorder,
+            goalsSelectError,
+            fieldError
+          );
+        }
 
-            console.log(fieldError, 's')
+        // Check appointmentSelectText multiselect
+        fieldError = checkFieldDrop(
+          appointmentSelectText,
+          appointmentSelectBorder,
+          appointmentSelectError,
+          fieldError
+        );
 
-            // Check goalsSelectText multiselect & resticts user to max items that can be selected
-            var maxNumberOfInputsAllowedGoals = 15;
-            console.log(fieldError, 'spec field goals')
-                if(divGoals.style.display === 'block') {
-                    fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
-                    ('G function 1')
-                    let goalsOptions = Array.from(document.getElementById('goalsSelect').options)
-                    let filteredArray = goalsOptions.filter( item => item.selected === true ).length
-                    if(filteredArray) {
-                        ('G function 2')
-                        fieldError = checkInputsSelected (
-                            filteredArray, 
-                            maxNumberOfInputsAllowedGoals, 
-                            goalsSelectText,
-                            goalsSelectBorder,
-                            goalsSelectError,
-                            fieldError)
-                    }
-                }
+        // Check clientSelectText multiselect
+        fieldError = checkFieldDrop(
+          clientSelectText,
+          clientSelectBorder,
+          clientSelectError,
+          fieldError
+        );
 
-                console.log(fieldError, 'goals')
-            
-            // Check goalsSelectText multiselect
-            if (divGoals.style.display == 'block'){
-                fieldError = checkFieldDrop(goalsSelectText,goalsSelectBorder,goalsSelectError,fieldError);
-            }
-            
-            // Check appointmentSelectText multiselect
-            fieldError = checkFieldDrop(appointmentSelectText,appointmentSelectBorder,appointmentSelectError,fieldError);
+        // Check tooltipPricingFieldDE not required
+        // Check tooltipPricingFieldEN not required
 
-            // Check clientSelectText multiselect
-            fieldError = checkFieldDrop(clientSelectText,clientSelectBorder,clientSelectError,fieldError);
+        // Check insuranceSelectText multiselect
+        fieldError = checkFieldDrop(
+          insuranceSelectText,
+          insuranceSelectBorder,
+          insuranceSelectError,
+          fieldError
+        );
 
-            // Check tooltipPricingFieldDE not required
-            // Check tooltipPricingFieldEN not required
+        // Check seoDescriptionFieldDE
+        fieldError = checkField(
+          seoDescriptionFieldDE,
+          seoDescriptionFieldDEError,
+          fieldError
+        );
 
-            // Check insuranceSelectText multiselect
-            fieldError = checkFieldDrop(insuranceSelectText,insuranceSelectBorder,insuranceSelectError,fieldError);
+        // Check seoDescriptionFieldEN
+        fieldError = checkField(
+          seoDescriptionFieldEN,
+          seoDescriptionFieldENError,
+          fieldError
+        );
 
-            // Check seoDescriptionFieldDE
-            fieldError = checkField(seoDescriptionFieldDE,seoDescriptionFieldDEError,fieldError);
+        // Check Pricing CHF
+        fieldError = checkField(priceAmountFieldDE, priceError, fieldError);
 
-            // Check seoDescriptionFieldEN
-            fieldError = checkField(seoDescriptionFieldEN,seoDescriptionFieldENError,fieldError);
+        // Check Pricing Minutes
+        fieldError = checkField(priceMinutesFieldDE, priceError, fieldError);
 
-            // Check Pricing CHF
-            fieldError = checkField(priceAmountFieldDE,priceError,fieldError);
+        // Check Phone Number
+        if (
+          isNaN(phoneNumberField.value) ||
+          phoneNumberField.value.length < 10
+        ) {
+          phoneNumberField.classList.add("borderError");
+          phoneNumberFieldError.style.display = "block";
+          phoneNumberFieldError.innerText = "Keine gültige Telefonnummer";
+          fieldError = true;
+        }
 
-            // Check Pricing Minutes
-            fieldError = checkField(priceMinutesFieldDE,priceError,fieldError);
+        // Check Availability
+        fieldError = checkField(
+          availabilitySelect,
+          availabilitySelectError,
+          fieldError
+        );
 
-            // Check Phone Number
-            if (isNaN(phoneNumberField.value) || phoneNumberField.value.length < 10) {
-                phoneNumberField.classList.add('borderError');
-                phoneNumberFieldError.style.display = 'block';
-                phoneNumberFieldError.innerText = 'Keine gültige Telefonnummer';
-                fieldError = true;
-            }
+        // Check Experience
+        if (experienceField.value > 60 || experienceField.value.length == "") {
+          experienceField.classList.add("borderError");
+          experienceFieldError.style.display = "block";
+          experienceFieldError.innerText = "Pflichtfeld (max. 60 Jahre)";
+          fieldError = true;
+        }
 
-            // Check Availability
-            fieldError = checkField(availabilitySelect,availabilitySelectError,fieldError);
+        //Raise if field error
+        if (fieldError) {
+          updateError.innerText = "Profil konnte nicht aktuallisiert werden.";
+          updateError.style.display = "block";
+          updateError.style.color = errorColor;
+          // Error Reset function
+          removeError();
+          return;
+        }
 
-            // Check Experience
-            if (experienceField.value > 60 || experienceField.value.length == "") {
-                experienceField.classList.add('borderError');
-                experienceFieldError.style.display = 'block';
-                experienceFieldError.innerText = 'Pflichtfeld (max. 60 Jahre)';
-                fieldError = true;
-            }
-
-            //Raise if field error
-            if (fieldError){
-                updateError.innerText = 'Profil konnte nicht aktuallisiert werden.';
-                updateError.style.display = 'block';
-                updateError.style.color = errorColor;
-                // Error Reset function
-                removeError();
-                return;
-            }
-
-            // Set native Language
-            var natLang = '';
-            if (nativeLanguageSelect.value == '0' || nativeLanguageSelect.value == ''){natLang = null} else {natLang=nativeLanguageSelect.value}
-
-            // Create Price
-            var priceDE = 'Einzelsitzung ' + 'CHF ' + priceAmountFieldDE.value + ' / ' + priceMinutesFieldDE.value + ' Minuten';
-            var priceEN = 'Individual session ' + 'CHF ' + priceAmountFieldDE.value + ' / ' + priceMinutesFieldDE.value + ' minutes';
-
-            // If healthInsurances is 'Keine' send no value
-            var healthIns = [...insuranceSelect.options].flatMap(obj => obj.selected ? obj.value : []);
-            if (healthIns.includes('0')){
-                healthIns = [];
-            }
-
-            // If memberships is 'Keine' send no value
-            var memberIns = [...membershipSelect.options].flatMap(obj => obj.selected ? obj.value : []);
-            if (memberIns.includes('0')){
-                memberIns = [];
-            }
-
-            if(comments){console.log('No field error, update profile...');}
-            loadingScreen.style.display = 'flex';
-            profileUpdateButton.classList.add('isdisabled');
-            profileUpdateButton.innerText = 'aktualisieren...'
-            loadingText.innerText = "Dein Profil wird aktualisiert...";
-            loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60f9628a525d319dac6bad70_Spinner-1s-200px.svg';
-
-            var functions = firebase.app().functions('europe-west1');
-            var updateExpert = functions.httpsCallable('updateExpert');updateExpert({
-                environment: environmentGlobal,
-                data: {
-                    phoneNumber: phoneNumberField.value,
-                    nativeLanguage: natLang,
-                    price: {
-                        'de-CH': priceDE,
-                        en: priceEN
-                    },
-                    gender: genderSelect.value,
-                    experience: experienceField.value,
-                    availability: availabilitySelect.value,
-                    goals: [...goalsSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    specialisations: [...specializationSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    memberships: memberIns,
-                    clients: [...clientSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    methods: [...methodsSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    appointmentTypes: [...appointmentSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    healthInsurances: healthIns,
-                    languages: [...languageSelect.options].flatMap(obj => obj.selected ? obj.value : []),
-                    tooltipPricing: {
-                        'de-CH': tooltipPricingFieldDE.value,
-                        en: tooltipPricingFieldEN.value
-                    },
-                    education: {
-                        'de-CH': educationFieldDE.value,
-                        en: educationFieldEN.value
-                    },
-                    jobTitleIndividual:{
-                        'de-CH' : jobTitleIndividualFieldDE.value,
-                        en : jobTitleIndividualFieldEN.value
-                    },
-                    seo:{
-                        'de-CH':{
-                            description: seoDescriptionFieldDE.value,
-                            title: seoTitleFieldDE.value,
-                            twitterCard: "summary"
-                        },
-                        en:{
-                            description: seoDescriptionFieldEN.value,
-                            title: seoTitleFieldEN.value,
-                            twitterCard: "summary"
-                        }
-                    },
-                    aboutMe: {
-                            en: aboutmeFieldEN.value,
-                            'de-CH': aboutmeFieldDE.value
-                        },
-                    }
-            })
-            .then((result) => {
-                
-                profileUpdateButton.innerText = 'Profil aktualisieren';
-                profileUpdateButton.classList.remove('isdisabled');
-                profileUpdateButton.style.display = 'flex';
-                loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80749e3fb2e087c8eea1a_outline_check_circle_white_24dp.png';
-                loadingText.innerText = 'Dein Profil wurde erfolgreich aktualisiert. Bis Deine Änderungen sichtbar sind, dauert es etwa 5 - 10 Minuten.';
-                updateError.innerText = 'Dein Profil wurde erfolgreich aktualisiert.';
-                updateError.style.display = 'block';
-                updateError.style.color = successColor;
-                if(comments){console.log("Update completed");}
-                setTimeout(function (){
-                    loadingScreen.style.display = 'none';
-                }, 5000);
-
-            })
-            .catch((error) => {
-                // Getting the Error details.
-                if(comments){console.log("Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.")}
-                if(comments){console.log(error.code);}
-                if(comments){console.log(error.message);}
-                if(comments){console.log(error.details);}
-                profileUpdateButton.style.display = 'flex';
-                loadingImage.src = 'https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png';
-                loadingText.innerText = 'Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.';
-                updateError.innerText = "Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.";
-                updateError.style.display = 'block';
-                updateError.style.color = errorColor;
-                setTimeout(function (){
-                    loadingScreen.style.display = 'none';
-                }, 5000);
-                
-            });
-            
+        // Set native Language
+        var natLang = "";
+        if (
+          nativeLanguageSelect.value == "0" ||
+          nativeLanguageSelect.value == ""
+        ) {
+          natLang = null;
         } else {
-            // No user is signed in.
-            if(comments){console.log('No user')}
+          natLang = nativeLanguageSelect.value;
         }
+
+        // Create Price
+        var priceDE =
+          "Einzelsitzung " +
+          "CHF " +
+          priceAmountFieldDE.value +
+          " / " +
+          priceMinutesFieldDE.value +
+          " Minuten";
+        var priceEN =
+          "Individual session " +
+          "CHF " +
+          priceAmountFieldDE.value +
+          " / " +
+          priceMinutesFieldDE.value +
+          " minutes";
+
+        // If healthInsurances is 'Keine' send no value
+        var healthIns = [...insuranceSelect.options].flatMap((obj) =>
+          obj.selected ? obj.value : []
+        );
+        if (healthIns.includes("0")) {
+          healthIns = [];
+        }
+
+        // If memberships is 'Keine' send no value
+        var memberIns = [...membershipSelect.options].flatMap((obj) =>
+          obj.selected ? obj.value : []
+        );
+        if (memberIns.includes("0")) {
+          memberIns = [];
+        }
+
+        if (comments) {
+          console.log("No field error, update profile...");
+        }
+        loadingScreen.style.display = "flex";
+        profileUpdateButton.classList.add("isdisabled");
+        profileUpdateButton.innerText = "aktualisieren...";
+        loadingText.innerText = "Dein Profil wird aktualisiert...";
+        loadingImage.src =
+          "https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60f9628a525d319dac6bad70_Spinner-1s-200px.svg";
+
+        var functions = firebase.app().functions("europe-west1");
+        var updateExpert = functions.httpsCallable("updateExpert");
+        updateExpert({
+          environment: environmentGlobal,
+          data: {
+            phoneNumber: phoneNumberField.value,
+            nativeLanguage: natLang,
+            price: {
+              "de-CH": priceDE,
+              en: priceEN,
+            },
+            gender: genderSelect.value,
+            experience: experienceField.value,
+            availability: availabilitySelect.value,
+            goals: [...goalsSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            specialisations: [...specializationSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            memberships: memberIns,
+            clients: [...clientSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            methods: [...methodsSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            appointmentTypes: [...appointmentSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            healthInsurances: healthIns,
+            languages: [...languageSelect.options].flatMap((obj) =>
+              obj.selected ? obj.value : []
+            ),
+            tooltipPricing: {
+              "de-CH": tooltipPricingFieldDE.value,
+              en: tooltipPricingFieldEN.value,
+            },
+            education: {
+              "de-CH": educationFieldDE.value,
+              en: educationFieldEN.value,
+            },
+            jobTitleIndividual: {
+              "de-CH": jobTitleIndividualFieldDE.value,
+              en: jobTitleIndividualFieldEN.value,
+            },
+            seo: {
+              "de-CH": {
+                description: seoDescriptionFieldDE.value,
+                title: seoTitleFieldDE.value,
+                twitterCard: "summary",
+              },
+              en: {
+                description: seoDescriptionFieldEN.value,
+                title: seoTitleFieldEN.value,
+                twitterCard: "summary",
+              },
+            },
+            aboutMe: {
+              en: aboutmeFieldEN.value,
+              "de-CH": aboutmeFieldDE.value,
+            },
+          },
+        })
+          .then((result) => {
+            profileUpdateButton.innerText = "Profil aktualisieren";
+            profileUpdateButton.classList.remove("isdisabled");
+            profileUpdateButton.style.display = "flex";
+            loadingImage.src =
+              "https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80749e3fb2e087c8eea1a_outline_check_circle_white_24dp.png";
+            loadingText.innerText =
+              "Dein Profil wurde erfolgreich aktualisiert. Bis Deine Änderungen sichtbar sind, dauert es etwa 5 - 10 Minuten.";
+            updateError.innerText =
+              "Dein Profil wurde erfolgreich aktualisiert.";
+            updateError.style.display = "block";
+            updateError.style.color = successColor;
+            if (comments) {
+              console.log("Update completed");
+            }
+            setTimeout(function () {
+              loadingScreen.style.display = "none";
+            }, 5000);
+          })
+          .catch((error) => {
+            // Getting the Error details.
+            if (comments) {
+              console.log(
+                "Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden."
+              );
+            }
+            if (comments) {
+              console.log(error.code);
+            }
+            if (comments) {
+              console.log(error.message);
+            }
+            if (comments) {
+              console.log(error.details);
+            }
+            profileUpdateButton.style.display = "flex";
+            loadingImage.src =
+              "https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png";
+            loadingText.innerText =
+              "Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.";
+            updateError.innerText =
+              "Ein Fehler ist aufgetreten - deine Profil konnte nicht aktualisiert werden.";
+            updateError.style.display = "block";
+            updateError.style.color = errorColor;
+            setTimeout(function () {
+              loadingScreen.style.display = "none";
+            }, 5000);
+          });
+      } else {
+        // No user is signed in.
+        if (comments) {
+          console.log("No user");
+        }
+      }
     });
-}
+  }

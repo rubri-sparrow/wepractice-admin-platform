@@ -141,7 +141,6 @@
           fieldError
         );
         if (!$("#methodsSelectText").is(":empty")) {
-          console.log("methods function working 1");
           let methodsOptions = Array.from(
             document.getElementById("methodsSelect").options
           );
@@ -149,7 +148,6 @@
             (item) => item.selected === true
           ).length;
           if (filteredArray) {
-            console.log("methods function working 2");
             fieldError = checkInputsSelected(
               filteredArray,
               maxNumberOfInputsAllowedMethods,
@@ -160,8 +158,6 @@
             );
           }
         }
-
-        console.log(fieldError, "methods");
 
         // Check specializationSelectText multiselect & resticts user to max items that can be selected
         var maxNumberOfInputsAllowedSpecialization = 20;
@@ -192,11 +188,8 @@
           }
         }
 
-        console.log(fieldError, "s");
-
         // Check goalsSelectText multiselect & resticts user to max items that can be selected
         var maxNumberOfInputsAllowedGoals = 15;
-        console.log(fieldError, "spec field goals");
         if (divGoals.style.display === "block") {
           fieldError = checkFieldDrop(
             goalsSelectText,
@@ -204,7 +197,6 @@
             goalsSelectError,
             fieldError
           );
-          ("G function 1");
           let goalsOptions = Array.from(
             document.getElementById("goalsSelect").options
           );
@@ -212,7 +204,6 @@
             (item) => item.selected === true
           ).length;
           if (filteredArray) {
-            ("G function 2");
             fieldError = checkInputsSelected(
               filteredArray,
               maxNumberOfInputsAllowedGoals,
@@ -223,8 +214,6 @@
             );
           }
         }
-
-        console.log(fieldError, "goals");
 
         // Check goalsSelectText multiselect
         if (divGoals.style.display == "block") {

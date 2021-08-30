@@ -1,0 +1,25 @@
+<script>
+
+// Restrict number of specilization selected by user
+$("#specializationSelect option").mousedown(function (e) {
+  const inputChecksAllowedSpecialization = 20;
+  let specializationOptions = Array.from(
+    document.getElementById("specializationSelect").options
+  );
+  let filteredArray = specializationOptions.filter(
+    (item) => item.selected === true
+  );
+  if (filteredArray.length >= inputChecksAllowedSpecialization) {
+    specializationOptions.forEach((opt) => {
+      if (opt.selected === false) {
+        opt.disabled = true;
+      }
+    });
+  } else {
+    specializationOptions.forEach((opt) => {
+      opt.disabled = false;
+    });
+  }
+});
+
+</script>
