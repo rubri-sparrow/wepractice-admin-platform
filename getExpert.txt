@@ -1,9 +1,16 @@
-  window.addEventListener("load", read_dato);
+window.addEventListener("load", read_dato);
   function read_dato() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         loadingText.innerText = "Dein Profil wird geladen...";
         var functions = firebase.app().functions("europe-west1");
+
+        var getUserRequests = functions.httpsCallable("getUserRequests");
+
+        getUserRequests({ environment: environmentGlobal }).then((result) => {
+          // Read result of the Cloud Function.
+          console.log("getUserRequest", result);
+        });
 
         //getExpertFieldsModels
         var getExpertFieldsModels = functions.httpsCallable(
