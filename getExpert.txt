@@ -84,10 +84,20 @@
                 : 1;
             });
             sortData.forEach((language) => {
-              let opt = document.createElement("option");
-              opt.value = language.id;
-              opt.innerText += language.name["de-CH"];
-              languageSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", language.id);
+              input.setAttribute("name", language.name);
+
+              span.innerText += language.name;
+              languageSelect.appendChild(label);
             });
 
             //Health insurance(s)
@@ -151,10 +161,19 @@
             });
 
             //Memberships
-            var noneOpt = document.createElement("option");
-            noneOpt.value = "0";
-            noneOpt.innerText += "Keine";
-            membershipSelect.appendChild(noneOpt);
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            let span = document.createElement("span");
+            label.appendChild(input);
+            label.appendChild(span);
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("class", "w-checkbox-input");
+            label.setAttribute("class", "w-checkbox");
+            span.setAttribute("class", "w-form-label");
+            input.setAttribute("value", 0);
+            input.setAttribute("name", "Keine");
+            span.innerText += "Keine";
+            membershipSelect.appendChild(label);
 
             var sortData = data.therapist_membership.sort(function (a, b) {
               return a.membership == b.membership
@@ -164,10 +183,20 @@
                 : 1;
             });
             sortData.forEach((child) => {
-              let opt = document.createElement("option");
-              opt.value = child.id;
-              opt.innerText += child.membership;
-              membershipSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", child.id);
+              input.setAttribute("name", child.membership);
+
+              span.innerText += child.membership;
+              membershipSelect.appendChild(label);
             });
 
             //Methods
@@ -179,10 +208,20 @@
                 : 1;
             });
             sortData.forEach((child) => {
-              let opt = document.createElement("option");
-              opt.value = child.id;
-              opt.innerText += child.name["de-CH"];
-              methodsSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", child.id);
+              input.setAttribute("name", child.name["de-CH"]);
+
+              span.innerText += child.name["de-CH"];
+              methodsSelect.appendChild(label);
             });
 
             //Goals
@@ -194,10 +233,20 @@
                 : 1;
             });
             sortData.forEach((child) => {
-              let opt = document.createElement("option");
-              opt.value = child.id;
-              opt.innerText += child.name["de-CH"];
-              goalsSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", child.id);
+              input.setAttribute("name", child.name["de-CH"]);
+
+              span.innerText += child.name["de-CH"];
+              goalsSelect.appendChild(label);
             });
 
             //Job Title Standardised
@@ -236,12 +285,11 @@
                 //languageSelect multiselect
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#languageSelect").options
-                ).forEach((opt) => {
-                  if (data.languages.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#languageSelect label input")
+                ).forEach((input) => {
+                  if (data.languages.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 languageSelectText.innerText = textDrop.join(", ");
@@ -303,35 +351,32 @@
 
                 //Memberships
                 var textDrop = [];
-                Array.from(
-                  document.querySelector("#membershipSelect").options
-                ).forEach((opt) => {
-                  if (data.memberships.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
-                  } else if (
-                    (!Array.isArray(data.memberships) ||
-                      !data.memberships.length) &&
-                    opt.value == "0"
-                  ) {
-                    // Select 'Keine' if membership is empty
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
-                  }
-                });
+                document
+                  .querySelectorAll("#membershipSelect label input")
+                  .forEach((input) => {
+                    if (data.memberships.includes(input.value)) {
+                      input.checked = true;
+                      textDrop.push(input.name);
+                    } else if (
+                      (!Array.isArray(data.memberships) ||
+                        !data.memberships.length) &&
+                      input.value == "0"
+                    ) {
+                      // Select 'Keine' if membership is empty
+                      input.checked = true;
+                      textDrop.push(input.name);
+                    }
+                  });
                 membershipSelectText.innerText = textDrop.join(", ");
 
                 //Methods
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#methodsSelect").options
-                ).forEach((opt) => {
-                  if (data.methods.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#methodsSelect label input")
+                ).forEach((input) => {
+                  if (data.methods.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 methodsSelectText.innerText = textDrop.join(", ");
@@ -339,12 +384,11 @@
                 //Goals
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#goalsSelect").options
-                ).forEach((opt) => {
-                  if (data.goals.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#goalsSelect label input")
+                ).forEach((input) => {
+                  if (data.goals.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 goalsSelectText.innerText = textDrop.join(", ");
@@ -379,6 +423,44 @@
                 }
 
                 //Specializations
+                // var sortData = modelData.specialisation.sort(function (a, b) {
+                //   return a.name["de-CH"] == b.name["de-CH"]
+                //     ? 0
+                //     : a.name["de-CH"] < b.name["de-CH"]
+                //     ? -1
+                //     : 1;
+                // });
+                // sortData.forEach((child) => {
+                //   let input = document.createElement("option");
+                //   opt.value = child.id;
+                //   opt.innerText += child.name["de-CH"];
+                //   if (child.heavy) {
+                //     if (
+                //       data.jobTitleStandardised.includes("40834088") ||
+                //       data.jobTitleStandardised.includes("25650536")
+                //     ) {
+                //       specializationSelect.appendChild(opt);
+                //     }
+                //   } else {
+                //     specializationSelect.appendChild(opt);
+                //   }
+                // });
+
+                // //Specializations
+                // var textDrop = [];
+                // Array.from(
+                //   document.querySelector("#specializationSelect").options
+                // ).forEach((opt) => {
+                //   if (data.specialisations.includes(opt.value)) {
+                //     opt.selected = true;
+                //     opt.classList.add("optchecked");
+                //     textDrop.push(opt.innerText);
+                //   }
+                // });
+                // specializationSelectText.innerText = textDrop.join(", ");
+
+                /// DELETE
+
                 var sortData = modelData.specialisation.sort(function (a, b) {
                   return a.name["de-CH"] == b.name["de-CH"]
                     ? 0
@@ -386,46 +468,8 @@
                     ? -1
                     : 1;
                 });
+
                 sortData.forEach((child) => {
-                  let opt = document.createElement("option");
-                  opt.value = child.id;
-                  opt.innerText += child.name["de-CH"];
-                  if (child.heavy) {
-                    if (
-                      data.jobTitleStandardised.includes("40834088") ||
-                      data.jobTitleStandardised.includes("25650536")
-                    ) {
-                      specializationSelect.appendChild(opt);
-                    }
-                  } else {
-                    specializationSelect.appendChild(opt);
-                  }
-                });
-
-                //Specializations
-                var textDrop = [];
-                Array.from(
-                  document.querySelector("#specializationSelect").options
-                ).forEach((opt) => {
-                  if (data.specialisations.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
-                  }
-                });
-                specializationSelectText.innerText = textDrop.join(", ");
-
-                /// DELETE
-
-                var sortData2 = modelData.specialisation.sort(function (a, b) {
-                  return a.name["de-CH"] == b.name["de-CH"]
-                    ? 0
-                    : a.name["de-CH"] < b.name["de-CH"]
-                    ? -1
-                    : 1;
-                });
-
-                sortData2.forEach((child) => {
                   let label = document.createElement("label");
                   let input = document.createElement("input");
                   let span = document.createElement("span");
@@ -439,30 +483,30 @@
                   input.setAttribute("name", child.name["de-CH"]);
 
                   span.innerText += child.name["de-CH"];
-                  dropdownSelect.appendChild(label);
+                  specializationSelect.appendChild(label);
 
                   if (child.heavy) {
                     if (
                       data.jobTitleStandardised.includes("40834088") ||
                       data.jobTitleStandardised.includes("25650536")
                     ) {
-                      dropdownSelect.appendChild(label);
+                      specializationSelect.appendChild(label);
                     }
                   } else {
-                    dropdownSelect.appendChild(label);
+                    specializationSelect.appendChild(label);
                   }
                 });
 
                 var textDrop = [];
                 document
-                  .querySelectorAll(".w-checkbox input")
+                  .querySelectorAll("#specializationSelect .w-checkbox input")
                   .forEach((input) => {
                     if (data.specialisations.includes(input.value)) {
                       input.checked = true;
                       textDrop.push(input.name);
                     }
                   });
-                dropdownSelectText.innerText = textDrop.join(", ");
+                specializationSelectText.innerText = textDrop.join(", ");
 
                 /// DELETE ///////////////////////////////////////////////////////////
 
@@ -533,26 +577,26 @@
                 });
 
                 // Update Membership Dropdown
-                $("#membershipSelect option").mousedown(function (e) {
-                  if (this.value == "0") {
-                    Array.from(
-                      document.getElementById("membershipSelect").options
-                    ).forEach((opt) => {
-                      opt.selected = false;
-                      opt.classList.remove("optchecked");
-                    });
-                  } else {
-                    Array.from(
-                      document.getElementById("membershipSelect").options
-                    ).forEach((opt) => {
-                      if (opt.value == "0") {
-                        opt.selected = false;
-                        opt.classList.remove("optchecked");
-                      }
-                    });
-                  }
-                  return false;
-                });
+                // $("#membershipSelect label input").on("change", function (e) {
+                //   if (this.value == "0") {
+                //     Array.from(
+                //       document.getElementById("#specializationSelect .w-checkbox input").options
+                //     ).forEach((opt) => {
+                //       opt.selected = false;
+                //       opt.classList.remove("optchecked");
+                //     });
+                //   } else {
+                //     Array.from(
+                //       document.getElementById("membershipSelect").options
+                //     ).forEach((opt) => {
+                //       if (opt.value == "0") {
+                //         opt.selected = false;
+                //         opt.classList.remove("optchecked");
+                //       }
+                //     });
+                //   }
+                //   return false;
+                // });
 
                 // select dropdown on click
                 $("option").mousedown(function (e) {
@@ -599,7 +643,6 @@
                       .getElementsByTagName("input")
                   ).forEach((input) => {
                     if (input.checked) {
-                      console.log("working");
                       selectedInput.push(input.name);
                     }
                   });
@@ -638,65 +681,65 @@
 
                 ////// DELETE /////////////////////////////
 
-                $("#dropdownSelect label input").change(function (e) {
+                $("#specializationSelect label input").change(function (e) {
                   const inputChecksAllowedSpecialization = 20;
-                  let specializationOptions = Array.from(
-                    document.querySelectorAll(".w-checkbox input")
+                  let specializationInputs = Array.from(
+                    document.querySelectorAll(
+                      "#specializationSelect label input"
+                    )
                   );
-                  console.log(specializationOptions.length);
-                  let filteredArray = specializationOptions.filter(
+                  let filteredArray = specializationInputs.filter(
                     (item) => item.checked === true
                   );
-                  console.log(filteredArray.length);
                   if (
                     filteredArray.length >= inputChecksAllowedSpecialization
                   ) {
-                    specializationOptions.forEach((opt) => {
+                    specializationInputs.forEach((opt) => {
                       if (opt.checked === false) {
                         opt.disabled = true;
                       }
                     });
                   } else {
-                    specializationOptions.forEach((opt) => {
+                    specializationInputs.forEach((opt) => {
                       opt.disabled = false;
                     });
                   }
                 });
 
                 // Restrict number of methods selected by user
-                $("#methodsSelect option").mousedown(function (e) {
+                $("#methodsSelect label input").on("change", function (e) {
                   const inputChecksAllowedMethods = 20;
-                  let methodsOptions = Array.from(
-                    document.getElementById("methodsSelect").options
+                  let methodsInputs = Array.from(
+                    document.querySelectorAll("#methodsSelect label input")
                   );
-                  let filteredArray = methodsOptions.filter(
-                    (item) => item.selected === true
+                  let filteredArray = methodsInputs.filter(
+                    (item) => item.checked === true
                   );
                   if (filteredArray.length >= inputChecksAllowedMethods) {
-                    methodsOptions.forEach((opt) => {
-                      if (opt.selected === false) {
-                        opt.disabled = true;
+                    methodsInputs.forEach((input) => {
+                      if (input.checked === false) {
+                        input.disabled = true;
                       }
                     });
                   } else {
-                    methodsOptions.forEach((opt) => {
-                      opt.disabled = false;
+                    methodsInputs.forEach((input) => {
+                      input.disabled = false;
                     });
                   }
                 });
 
                 // Restrict number of goals selected by user
-                $("#goalsSelect option").mousedown(function (e) {
+                $("#goalsSelect label input").on("change", function (e) {
                   const inputChecksAllowedGoals = 15;
                   let goalsOptions = Array.from(
-                    document.getElementById("goalsSelect").options
+                    document.querySelectorAll("#goalsSelect label input")
                   );
                   let filteredArray = goalsOptions.filter(
-                    (item) => item.selected === true
+                    (item) => item.checked === true
                   );
                   if (filteredArray.length >= inputChecksAllowedGoals) {
                     goalsOptions.forEach((opt) => {
-                      if (opt.selected === false) {
+                      if (opt.checked === false) {
                         opt.disabled = true;
                       }
                     });

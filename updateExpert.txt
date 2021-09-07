@@ -1,4 +1,4 @@
-profileUpdateButton.addEventListener("click", write_dato);
+  profileUpdateButton.addEventListener("click", write_dato);
 
   function checkField(field, fieldMessage, fieldError) {
     if (field.value == "") {
@@ -102,7 +102,7 @@ profileUpdateButton.addEventListener("click", write_dato);
         // Check genderSelect
         fieldError = checkField(genderSelect, genderSelectError, fieldError);
 
-        // Check languageSelectText dropdown
+        // Check languageSelectText specialization
         fieldError = checkFieldDrop(
           languageSelectText,
           languageSelectBorder,
@@ -141,10 +141,10 @@ profileUpdateButton.addEventListener("click", write_dato);
         );
         if (!$("#methodsSelectText").is(":empty")) {
           let methodsOptions = Array.from(
-            document.getElementById("methodsSelect").options
+            document.querySelectorAll("#methodsSelect label input")
           );
           let filteredArray = methodsOptions.filter(
-            (item) => item.selected === true
+            (item) => item.checked === true
           ).length;
           if (filteredArray) {
             fieldError = checkInputsSelected(
@@ -159,6 +159,35 @@ profileUpdateButton.addEventListener("click", write_dato);
         }
 
         // Check specializationSelectText multiselect & resticts user to max items that can be selected
+        // var maxNumberOfInputsAllowedSpecialization = 20;
+        // if (divSpecializations.style.display == "block") {
+        //   fieldError = checkFieldDrop(
+        //     specializationSelectText,
+        //     specializationSelectBorder,
+        //     specializationSelectError,
+        //     fieldError
+        //   );
+        //   if (!$("#specializationSelectText").is(":empty")) {
+        //     let specializationInputs = Array.from(
+        //       document.getElementById("specializationSelect").options
+        //     );
+        //     let filteredArray = specializationInputs.filter(
+        //       (item) => item.selected === true
+        //     ).length;
+        //     if (filteredArray) {
+        //       fieldError = checkInputsSelected(
+        //         filteredArray,
+        //         maxNumberOfInputsAllowedSpecialization,
+        //         specializationSelectText,
+        //         specializationSelectBorder,
+        //         specializationSelectError,
+        //         fieldError
+        //       );
+        //     }
+        //   }
+        // }
+
+        // DELETE ///////////////////////////////////////////////////////
         var maxNumberOfInputsAllowedSpecialization = 20;
         if (divSpecializations.style.display == "block") {
           fieldError = checkFieldDrop(
@@ -168,12 +197,12 @@ profileUpdateButton.addEventListener("click", write_dato);
             fieldError
           );
           if (!$("#specializationSelectText").is(":empty")) {
-            let specializationOptions = Array.from(
-              document.getElementById("specializationSelect").options
+            let specializationInputs = Array.from(
+              document.querySelectorAll("#specialization label input")
             );
-            let filteredArray = specializationOptions.filter(
-              (item) => item.selected === true
-            ).length;
+            let filteredArray = specializationInputs.filter(
+              (item) => item.checked === true
+            );
             if (filteredArray) {
               fieldError = checkInputsSelected(
                 filteredArray,
@@ -196,11 +225,11 @@ profileUpdateButton.addEventListener("click", write_dato);
             goalsSelectError,
             fieldError
           );
-          let goalsOptions = Array.from(
-            document.getElementById("goalsSelect").options
+          let goalsInputs = Array.from(
+            document.querySelectorAll("#goalsSelect label input")
           );
-          let filteredArray = goalsOptions.filter(
-            (item) => item.selected === true
+          let filteredArray = goalsInputs.filter(
+            (item) => item.checked === true
           ).length;
           if (filteredArray) {
             fieldError = checkInputsSelected(
@@ -343,9 +372,9 @@ profileUpdateButton.addEventListener("click", write_dato);
         }
 
         // If memberships is 'Keine' send no value
-        var memberIns = [...membershipSelect.options].flatMap((obj) =>
-          obj.selected ? obj.value : []
-        );
+        var memberIns = [
+          ...document.querySelectorAll("#membershipSelect label input"),
+        ].flatMap((obj) => (obj.checked ? obj.value : []));
         if (memberIns.includes("0")) {
           memberIns = [];
         }
@@ -374,19 +403,19 @@ profileUpdateButton.addEventListener("click", write_dato);
             gender: genderSelect.value,
             experience: experienceField.value,
             availability: availabilitySelect.value,
-            goals: [...goalsSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
-            specialisations: [...specializationSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
+            goals: [
+              ...document.querySelectorAll("#goalsSelect label input"),
+            ].flatMap((obj) => (obj.checked ? obj.value : [])),
+            specialisations: [
+              ...document.querySelectorAll("#specializationSelect label input"),
+            ].flatMap((input) => (input.checked ? input.value : [])),
             memberships: memberIns,
             clients: [...clientSelect.options].flatMap((obj) =>
               obj.selected ? obj.value : []
             ),
-            methods: [...methodsSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
+            methods: [
+              ...document.querySelectorAll("#methodsSelect label input"),
+            ].flatMap((obj) => (obj.checked ? obj.value : [])),
             appointmentTypes: [...appointmentSelect.options].flatMap((obj) =>
               obj.selected ? obj.value : []
             ),
