@@ -1,0 +1,15 @@
+<script>
+  updateButton.addEventlistener("load", updateRequest);
+
+  function updateRequest() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        reason = reasonField.value;
+        status = statusField.value;
+        comment = commentField.value;
+      }
+      console.log(reason);
+      console.log(reason);
+    });
+  }
+</script>
