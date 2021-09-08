@@ -95,17 +95,27 @@
               label.setAttribute("class", "w-checkbox");
               span.setAttribute("class", "w-form-label");
               input.setAttribute("value", language.id);
-              input.setAttribute("name", language.name);
+              input.setAttribute("name", language.name["de-CH"]);
 
-              span.innerText += language.name;
+              span.innerText += language.name["de-CH"];
               languageSelect.appendChild(label);
             });
 
-            //Health insurance(s)
-            var noneOpt = document.createElement("option");
-            noneOpt.value = "0";
-            noneOpt.innerText += "Keine";
-            insuranceSelect.appendChild(noneOpt);
+            // Health insurance(s)
+            var label = document.createElement("label");
+            var input = document.createElement("input");
+            var span = document.createElement("span");
+            label.appendChild(input);
+            label.appendChild(span);
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("class", "w-checkbox-input");
+            label.setAttribute("class", "w-checkbox");
+            span.setAttribute("class", "w-form-label");
+            input.setAttribute("value", "0");
+            input.setAttribute("name", "Keine");
+
+            span.innerText += "Keine";
+            insuranceSelect.appendChild(label);
 
             var sortData = data.therapist_health_insurance.sort(function (
               a,
@@ -125,10 +135,20 @@
             });
 
             sortData.forEach((insurance) => {
-              let opt = document.createElement("option");
-              opt.value = insurance.id;
-              opt.innerText += insurance.name["de-CH"];
-              insuranceSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", insurance.id);
+              input.setAttribute("name", insurance.name["de-CH"]);
+
+              span.innerText += insurance.name["de-CH"];
+              insuranceSelect.appendChild(label);
             });
 
             //Appointment types
@@ -140,10 +160,20 @@
                 : 1;
             });
             sortData.forEach((appointment) => {
-              let opt = document.createElement("option");
-              opt.value = appointment.id;
-              opt.innerText += appointment.name["de-CH"];
-              appointmentSelect.appendChild(opt);
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", appointment.id);
+              input.setAttribute("name", appointment.name["de-CH"]);
+
+              span.innerText += appointment.name["de-CH"];
+              appointmentSelect.appendChild(label);
             });
 
             //Client types
@@ -154,24 +184,34 @@
                 ? -1
                 : 1;
             });
-            sortData.forEach((child) => {
-              let opt = document.createElement("option");
-              opt.value = child.id;
-              opt.innerText += child.client["de-CH"];
-              clientSelect.appendChild(opt);
+            sortData.forEach((client) => {
+              let label = document.createElement("label");
+              let input = document.createElement("input");
+              let span = document.createElement("span");
+              label.appendChild(input);
+              label.appendChild(span);
+              input.setAttribute("type", "checkbox");
+              input.setAttribute("class", "w-checkbox-input");
+              label.setAttribute("class", "w-checkbox");
+              span.setAttribute("class", "w-form-label");
+              input.setAttribute("value", client.id);
+              input.setAttribute("name", client.client["de-CH"]);
+
+              span.innerText += client.client["de-CH"];
+              clientSelect.appendChild(label);
             });
 
-            //Memberships
-            let label = document.createElement("label");
-            let input = document.createElement("input");
-            let span = document.createElement("span");
+            // Memberships
+            var label = document.createElement("label");
+            var input = document.createElement("input");
+            var span = document.createElement("span");
             label.appendChild(input);
             label.appendChild(span);
             input.setAttribute("type", "checkbox");
             input.setAttribute("class", "w-checkbox-input");
             label.setAttribute("class", "w-checkbox");
             span.setAttribute("class", "w-form-label");
-            input.setAttribute("value", 0);
+            input.setAttribute("value", "0");
             input.setAttribute("name", "Keine");
             span.innerText += "Keine";
             membershipSelect.appendChild(label);
@@ -305,21 +345,19 @@
                 //healthInsuranceSelect multiselect
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#insuranceSelect").options
-                ).forEach((opt) => {
-                  if (data.healthInsurances.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#insuranceSelect label input")
+                ).forEach((input) => {
+                  if (data.healthInsurances.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   } else if (
                     (!Array.isArray(data.healthInsurances) ||
                       !data.healthInsurances.length) &&
-                    opt.value == "0"
+                    input.value == "0"
                   ) {
                     // Select 'Keine' if Health insurance is empty
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 insuranceSelectText.innerText = textDrop.join(", ");
@@ -327,12 +365,11 @@
                 //Appointment types multiselect
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#appointmentSelect").options
-                ).forEach((opt) => {
-                  if (data.appointmentTypes.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#appointmentSelect label input")
+                ).forEach((input) => {
+                  if (data.appointmentTypes.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 appointmentSelectText.innerText = textDrop.join(", ");
@@ -340,17 +377,16 @@
                 //Client types
                 var textDrop = [];
                 Array.from(
-                  document.querySelector("#clientSelect").options
-                ).forEach((opt) => {
-                  if (data.clients.includes(opt.value)) {
-                    opt.selected = true;
-                    opt.classList.add("optchecked");
-                    textDrop.push(opt.innerText);
+                  document.querySelectorAll("#clientSelect label input")
+                ).forEach((input) => {
+                  if (data.clients.includes(input.value)) {
+                    input.checked = true;
+                    textDrop.push(input.name);
                   }
                 });
                 clientSelectText.innerText = textDrop.join(", ");
 
-                //Memberships
+                // Memberships
                 var textDrop = [];
                 document
                   .querySelectorAll("#membershipSelect label input")
@@ -423,45 +459,6 @@
                   divSpecializations.style.display = "block";
                 }
 
-                //Specializations
-                // var sortData = modelData.specialisation.sort(function (a, b) {
-                //   return a.name["de-CH"] == b.name["de-CH"]
-                //     ? 0
-                //     : a.name["de-CH"] < b.name["de-CH"]
-                //     ? -1
-                //     : 1;
-                // });
-                // sortData.forEach((child) => {
-                //   let input = document.createElement("option");
-                //   opt.value = child.id;
-                //   opt.innerText += child.name["de-CH"];
-                //   if (child.heavy) {
-                //     if (
-                //       data.jobTitleStandardised.includes("40834088") ||
-                //       data.jobTitleStandardised.includes("25650536")
-                //     ) {
-                //       specializationSelect.appendChild(opt);
-                //     }
-                //   } else {
-                //     specializationSelect.appendChild(opt);
-                //   }
-                // });
-
-                // //Specializations
-                // var textDrop = [];
-                // Array.from(
-                //   document.querySelector("#specializationSelect").options
-                // ).forEach((opt) => {
-                //   if (data.specialisations.includes(opt.value)) {
-                //     opt.selected = true;
-                //     opt.classList.add("optchecked");
-                //     textDrop.push(opt.innerText);
-                //   }
-                // });
-                // specializationSelectText.innerText = textDrop.join(", ");
-
-                /// DELETE
-
                 var sortData = modelData.specialisation.sort(function (a, b) {
                   return a.name["de-CH"] == b.name["de-CH"]
                     ? 0
@@ -483,17 +480,16 @@
                   input.setAttribute("value", child.id);
                   input.setAttribute("name", child.name["de-CH"]);
 
-                  span.innerText += child.name["de-CH"];
-                  specializationSelect.appendChild(label);
-
                   if (child.heavy) {
                     if (
                       data.jobTitleStandardised.includes("40834088") ||
                       data.jobTitleStandardised.includes("25650536")
                     ) {
+                      span.innerText += child.name["de-CH"];
                       specializationSelect.appendChild(label);
                     }
                   } else {
+                    span.innerText += child.name["de-CH"];
                     specializationSelect.appendChild(label);
                   }
                 });
@@ -508,8 +504,6 @@
                     }
                   });
                 specializationSelectText.innerText = textDrop.join(", ");
-
-                /// DELETE ///////////////////////////////////////////////////////////
 
                 aboutmeFieldDE.value = data.aboutMe["de-CH"];
                 aboutmeFieldEN.value = data.aboutMe["en"];
@@ -548,29 +542,37 @@
                 loadingScreen.style.display = "none";
 
                 // Update InsuranceSelect Dropdown
-                $("#insuranceSelect option").mousedown(function (e) {
-                  if (
-                    this.value == "0" ||
-                    this.value == "47615587" ||
-                    this.value == "47621168"
-                  ) {
-                    Array.from(
-                      document.getElementById("insuranceSelect").options
-                    ).forEach((opt) => {
-                      opt.selected = false;
-                      opt.classList.remove("optchecked");
+                $("#insuranceSelect label input").on("change", function (e) {
+                  let inputs = Array.from(
+                    document.querySelectorAll("#insuranceSelect label input")
+                  );
+                  if (this.value == "0") {
+                    inputs.forEach((opt, index) => {
+                      if (opt.value === "0") {
+                        opt.checked = true;
+                      } else {
+                        opt.checked = false;
+                      }
+                    });
+                    return false;
+                  }
+
+                  if (this.value == "47615587") {
+                    inputs.forEach((opt, index) => {
+                      if (opt.value === "47615587") {
+                        opt.checked = true;
+                        insuranceSelectText.innerHTML = opt.name;
+                      } else {
+                        opt.checked = false;
+                      }
+                      return false;
                     });
                   } else {
                     Array.from(
-                      document.getElementById("insuranceSelect").options
+                      document.querySelectorAll("#insuranceSelect label input")
                     ).forEach((opt) => {
-                      if (
-                        opt.value == "0" ||
-                        opt.value == "47615587" ||
-                        opt.value == "47621168"
-                      ) {
-                        opt.selected = false;
-                        opt.classList.remove("optchecked");
+                      if (opt.value == "0" || opt.value == "47615587") {
+                        opt.checked = false;
                       }
                     });
                   }
@@ -578,28 +580,32 @@
                 });
 
                 // Update Membership Dropdown
-                // $("#membershipSelect label input").on("change", function (e) {
-                //   if (this.value == "0") {
-                //     Array.from(
-                //       document.getElementById("#specializationSelect .w-checkbox input").options
-                //     ).forEach((opt) => {
-                //       opt.selected = false;
-                //       opt.classList.remove("optchecked");
-                //     });
-                //   } else {
-                //     Array.from(
-                //       document.getElementById("membershipSelect").options
-                //     ).forEach((opt) => {
-                //       if (opt.value == "0") {
-                //         opt.selected = false;
-                //         opt.classList.remove("optchecked");
-                //       }
-                //     });
-                //   }
-                //   return false;
-                // });
+                $("#membershipSelect label input").on("change", function (e) {
+                  if (this.value == "0") {
+                    membershipSelectText.innerHTML = "";
+                    Array.from(
+                      document.querySelectorAll("#membershipSelect label input")
+                    ).forEach((opt, index) => {
+                      if (index === 0) {
+                        opt.checked = true;
+                      } else {
+                        opt.checked = false;
+                      }
+                    });
+                  } else {
+                    Array.from(
+                      document.querySelectorAll("#membershipSelect label input")
+                    ).forEach((opt, index) => {
+                      if (index === 0) {
+                        opt.checked = false;
+                      }
+                    });
+                  }
 
-                // select dropdown on click
+                  return false;
+                });
+
+                // select option on click
                 $("option").mousedown(function (e) {
                   if ($(this).prop("selected")) {
                     this.classList.remove("optchecked");
@@ -632,12 +638,10 @@
                   return false;
                 });
 
-                ///////// delete /////////////////////////
+                // select multiselect on click
 
                 $("label input").on("change", function (e) {
-                  console.log("checked", this.checked);
                   var selectedInput = [];
-                  console.log("selectedInput", selectedInput);
                   Array.from(
                     document
                       .getElementById(this.parentElement.parentElement.id)
@@ -649,38 +653,12 @@
                   });
 
                   var textID = this.parentElement.parentElement.id + "Text";
-                  console.log("text ID", textID);
                   document.getElementById(textID).innerText =
                     selectedInput.join(", ");
                   return false;
                 });
 
                 // Restrict number of specilization selected by user
-
-                $("#specializationSelect option").mousedown(function (e) {
-                  const inputChecksAllowedSpecialization = 20;
-                  let specializationOptions = Array.from(
-                    document.getElementById("specializationSelect").options
-                  );
-                  let filteredArray = specializationOptions.filter(
-                    (item) => item.selected === true
-                  );
-                  if (
-                    filteredArray.length >= inputChecksAllowedSpecialization
-                  ) {
-                    specializationOptions.forEach((opt) => {
-                      if (opt.selected === false) {
-                        opt.disabled = true;
-                      }
-                    });
-                  } else {
-                    specializationOptions.forEach((opt) => {
-                      opt.disabled = false;
-                    });
-                  }
-                });
-
-                ////// DELETE /////////////////////////////
 
                 $("#specializationSelect label input").change(function (e) {
                   const inputChecksAllowedSpecialization = 20;
@@ -788,19 +766,3 @@
     });
   }
 </script>
-
-sortData.forEach((child) => { let label = document.createElement("label"); let
-input = document.createElement("input"); let span =
-document.createElement("span"); label.appendChild(input);
-label.appendChild(span); input.setAttribute("type", "checkbox");
-input.setAttribute("class", "w-checkbox-input"); label.setAttribute("class",
-"w-checkbox"); span.setAttribute("class", "w-form-label");
-input.setAttribute("name", `${child.name}`); span.innerText +=
-child.name["de-CH"]; thelist.appendChild(span); if (child.heavy) { if (
-data.jobTitleStandardised.includes("40834088") ||
-data.jobTitleStandardised.includes("25650536") ) { thelist.appendChild(span); }
-} else { thelist.appendChild(span); } }); //Specializations var textDrop = [];
-document .querySelectorAll(".w-checkbox input") .forEach((opt) => { if
-(data.specialisations.includes(opt.value)) { opt.checked = true;
-textDrop.push(opt.name); } }); specializationSelectText.innerText =
-textDrop.join(", ");

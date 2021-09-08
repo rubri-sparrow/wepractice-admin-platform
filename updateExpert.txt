@@ -364,9 +364,9 @@
           " minutes";
 
         // If healthInsurances is 'Keine' send no value
-        var healthIns = [...insuranceSelect.options].flatMap((obj) =>
-          obj.selected ? obj.value : []
-        );
+        var healthIns = [
+          ...document.querySelectorAll("#insuranceSelect label input"),
+        ].flatMap((obj) => (obj.checked ? obj.value : []));
         if (healthIns.includes("0")) {
           healthIns = [];
         }
@@ -410,19 +410,19 @@
               ...document.querySelectorAll("#specializationSelect label input"),
             ].flatMap((input) => (input.checked ? input.value : [])),
             memberships: memberIns,
-            clients: [...clientSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
+            clients: [
+              ...document.querySelectorAll("#clientSelect label input"),
+            ].flatMap((obj) => (obj.checked ? obj.value : [])),
             methods: [
               ...document.querySelectorAll("#methodsSelect label input"),
             ].flatMap((obj) => (obj.checked ? obj.value : [])),
-            appointmentTypes: [...appointmentSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
+            appointmentTypes: [
+              ...document.querySelectorAll("#appointmentSelect label input"),
+            ].flatMap((obj) => (obj.checked ? obj.value : [])),
             healthInsurances: healthIns,
-            languages: [...languageSelect.options].flatMap((obj) =>
-              obj.selected ? obj.value : []
-            ),
+            languages: [
+              ...document.querySelectorAll("#languageSelect label input"),
+            ].flatMap((obj) => (obj.checked ? obj.value : [])),
             tooltipPricing: {
               "de-CH": tooltipPricingFieldDE.value,
               en: tooltipPricingFieldEN.value,
