@@ -48,6 +48,12 @@
                 ? -1
                 : 1;
             });
+            sortData.forEach((availability) => {
+              let opt = document.createElement("option");
+              opt.value = availability.id;
+              opt.innerText += availability.availability["de-CH"];
+              availabilitySelect.appendChild(opt);
+            });
 
             //Native language Select
             var noneOpt = document.createElement("option");
@@ -90,7 +96,7 @@
               input.setAttribute("value", language.id);
               input.setAttribute("name", language.name["de-CH"]);
 
-              span.innerText += "rupert";
+              span.innerText += "hellot";
               languageSelect.appendChild(label);
             });
 
