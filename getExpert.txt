@@ -48,12 +48,6 @@
                 ? -1
                 : 1;
             });
-            sortData.forEach((availability) => {
-              let opt = document.createElement("option");
-              opt.value = availability.id;
-              opt.innerText += availability.availability["de-CH"];
-              availabilitySelect.appendChild(opt);
-            });
 
             //Native language Select
             var noneOpt = document.createElement("option");
