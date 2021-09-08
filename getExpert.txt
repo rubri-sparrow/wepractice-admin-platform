@@ -96,7 +96,7 @@
               input.setAttribute("value", language.id);
               input.setAttribute("name", language.name["de-CH"]);
 
-              span.innerText += "LOLa";
+              span.innerText += "LOL44a";
               languageSelect.appendChild(label);
             });
 
