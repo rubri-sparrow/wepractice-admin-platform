@@ -96,7 +96,7 @@
               input.setAttribute("value", language.id);
               input.setAttribute("name", language.name["de-CH"]);
 
-              span.innerText += "non wayz....????!!!";
+              span.innerText += "ksdflkklsadfklsdkfdkddk";
               languageSelect.appendChild(label);
             });
 
