@@ -160,35 +160,6 @@
         }
 
         // Check specializationSelectText multiselect & resticts user to max items that can be selected
-        // var maxNumberOfInputsAllowedSpecialization = 20;
-        // if (divSpecializations.style.display == "block") {
-        //   fieldError = checkFieldDrop(
-        //     specializationSelectText,
-        //     specializationSelectBorder,
-        //     specializationSelectError,
-        //     fieldError
-        //   );
-        //   if (!$("#specializationSelectText").is(":empty")) {
-        //     let specializationInputs = Array.from(
-        //       document.getElementById("specializationSelect").options
-        //     );
-        //     let filteredArray = specializationInputs.filter(
-        //       (item) => item.selected === true
-        //     ).length;
-        //     if (filteredArray) {
-        //       fieldError = checkInputsSelected(
-        //         filteredArray,
-        //         maxNumberOfInputsAllowedSpecialization,
-        //         specializationSelectText,
-        //         specializationSelectBorder,
-        //         specializationSelectError,
-        //         fieldError
-        //       );
-        //     }
-        //   }
-        // }
-
-        // DELETE ///////////////////////////////////////////////////////
         var maxNumberOfInputsAllowedSpecialization = 20;
         if (divSpecializations.style.display == "block") {
           fieldError = checkFieldDrop(
@@ -467,6 +438,7 @@
             updateError.style.display = "block";
             updateError.style.color = successColor;
             if (comments) {
+              console.log(comments);
               console.log("Update completed");
             }
             setTimeout(function () {

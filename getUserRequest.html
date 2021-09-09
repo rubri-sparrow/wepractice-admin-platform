@@ -39,7 +39,7 @@
               };
 
               let userRequest = document.createElement("div");
-              userRequest.setAttribute("id", "request-container");
+              userRequest.setAttribute("id", request.id);
               userRequest.setAttribute("class", "request-container");
               requestList.appendChild(userRequest);
 
@@ -48,6 +48,7 @@
               for (var item in newObject) {
                 if (item !== "id") {
                   let userItem = document.createElement("div");
+                  userItem.setAttribute("id", item.id);
                   userItem.setAttribute("class", "div-block-48");
                   userRequest.appendChild(userItem);
 

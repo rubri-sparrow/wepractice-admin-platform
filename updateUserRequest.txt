@@ -1,0 +1,59 @@
+  updateRequestsButton.addEventListener("click", updateRequest);
+  function updateRequest() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // let data = {
+        //   id: "2021-08-31T07:10:37.697Z",
+        //   date_time: { _seconds: 1630393837, _nanoseconds: 69700000 },
+        //   status: "",
+        //   comment: "",
+        //   client_name: "YOYOYO",
+        //   type: "Buchungsanfrage",
+        // };
+        // var functions = firebase.app().functions("europe-west1");
+        // var updateUserRequest = functions.httpsCallable("updateUserRequest");
+        // updateUserRequest({
+        //   environment: environmentGlobal,
+        //   data,
+        // });
+
+        // take the id from the div and add to object
+        // then loop through the div and take the value and add to object
+
+        var requests = Array.from(
+          document.getElementById("requestList").children
+        );
+
+        var updatedRequests = [];
+
+        for (var i = 1; i < requests.length; i++) {
+          var obj = {};
+
+          obj["id"] = requests[i].id;
+          const container = document.getElementById(String(requests[i].id));
+          const matches = container.querySelectorAll("div select");
+          matches.forEach((opt) => {
+            if (opt.id === "reasonField") {
+              obj["reason"] = opt.value;
+            } else {
+              obj["status"] = opt.value;
+            }
+          });
+          updatedRequests.push(obj);
+        }
+        console.log(updatedRequests);
+
+        var functions = firebase.app().functions("europe-west1");
+        var updateUserRequest = functions.httpsCallable("updateUserRequest");
+        updateUserRequest({
+          environment: environmentGlobal,
+          data: updatedRequests,
+        });
+      } else {
+        // No user is signed in.
+        if (comments) {
+          console.log("No user");
+        }
+      }
+    });
+  }

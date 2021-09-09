@@ -1,0 +1,45 @@
+<script>
+  updateRequestsButton.addEventListener("click", updateRequest);
+  function updateRequest() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var requests = Array.from(
+          document.getElementById("requestList").children
+        );
+
+        var updatedRequests = [];
+
+        for (var i = 1; i < requests.length; i++) {
+          var obj = {};
+
+          obj["id"] = requests[i].id;
+          const container = document.getElementById(String(requests[i].id));
+          const matches = container.querySelectorAll("div select");
+          matches.forEach((opt) => {
+            if (opt.id === "reasonField") {
+              obj["reason"] = opt.value;
+            } else {
+              obj["status"] = opt.value;
+            }
+          });
+          updatedRequests.push(obj);
+        }
+
+        var functions = firebase.app().functions("europe-west1");
+        var updateUserRequest = functions.httpsCallable("updateUserRequest");
+        updateUserRequest({
+          environment: environmentGlobal,
+          data: updatedRequests,
+        });
+      } else {
+        // No user is signed in.
+        if (comments) {
+          console.log("No user");
+        }
+      }
+    });
+  }
+</script>
+
+console.log("opt", opt.id); const pleasework =
+document.getElementById(opt.id).value; console.log("pleasework", pleasework);
