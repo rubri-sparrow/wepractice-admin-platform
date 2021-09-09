@@ -134,12 +134,7 @@
                 : 1;
             });
 
-            console.log("sortData", sortData);
-
-            console.log("where we exit!!1");
-
             sortData.forEach((insurance) => {
-              console.log("insurance name", insurance.name);
               let label = document.createElement("label");
               let input = document.createElement("input");
               let span = document.createElement("span");
@@ -156,8 +151,6 @@
               insuranceSelect.appendChild(label);
             });
 
-            console.log("where we exit!!2");
-
             //Appointment types
             var sortData = data.appointment_type.sort(function (a, b) {
               return a.name["de-CH"] == b.name["de-CH"]
@@ -167,7 +160,6 @@
                 : 1;
             });
             sortData.forEach((appointment) => {
-              console.log("appointment name", appointment.name);
               let label = document.createElement("label");
               let input = document.createElement("input");
               let span = document.createElement("span");
@@ -300,7 +292,6 @@
 
             //Job Title Standardised
             var job = data.job_title_standardised;
-            console.log("job", job);
 
             loadingText.innerText = "fast geschafft...";
 
@@ -469,44 +460,6 @@
                 }
 
                 //Specializations
-                // var sortData = modelData.specialisation.sort(function (a, b) {
-                //   return a.name["de-CH"] == b.name["de-CH"]
-                //     ? 0
-                //     : a.name["de-CH"] < b.name["de-CH"]
-                //     ? -1
-                //     : 1;
-                // });
-                // sortData.forEach((child) => {
-                //   let input = document.createElement("option");
-                //   opt.value = child.id;
-                //   opt.innerText += child.name["de-CH"];
-                //   if (child.heavy) {
-                //     if (
-                //       data.jobTitleStandardised.includes("40834088") ||
-                //       data.jobTitleStandardised.includes("25650536")
-                //     ) {
-                //       specializationSelect.appendChild(opt);
-                //     }
-                //   } else {
-                //     specializationSelect.appendChild(opt);
-                //   }
-                // });
-
-                // //Specializations
-                // var textDrop = [];
-                // Array.from(
-                //   document.querySelector("#specializationSelect").options
-                // ).forEach((opt) => {
-                //   if (data.specialisations.includes(opt.value)) {
-                //     opt.selected = true;
-                //     opt.classList.add("optchecked");
-                //     textDrop.push(opt.innerText);
-                //   }
-                // });
-                // specializationSelectText.innerText = textDrop.join(", ");
-
-                /// DELETE
-
                 var sortData = modelData.specialisation.sort(function (a, b) {
                   return a.name["de-CH"] == b.name["de-CH"]
                     ? 0
@@ -533,12 +486,10 @@
                       data.jobTitleStandardised.includes("40834088") ||
                       data.jobTitleStandardised.includes("25650536")
                     ) {
-                      console.log("is heavy", child.heavy);
                       span.innerText += child.name["de-CH"];
                       specializationSelect.appendChild(label);
                     }
                   } else {
-                    console.log("is not heavy", child.heavy);
                     span.innerText += child.name["de-CH"];
                     specializationSelect.appendChild(label);
                   }
@@ -554,8 +505,6 @@
                     }
                   });
                 specializationSelectText.innerText = textDrop.join(", ");
-
-                /// DELETE ///////////////////////////////////////////////////////////
 
                 aboutmeFieldDE.value = data.aboutMe["de-CH"];
                 aboutmeFieldEN.value = data.aboutMe["en"];
@@ -693,9 +642,7 @@
                 ///////// delete /////////////////////////
 
                 $("label input").on("change", function (e) {
-                  console.log("checked", this.checked);
                   var selectedInput = [];
-                  console.log("selectedInput", selectedInput);
                   Array.from(
                     document
                       .getElementById(this.parentElement.parentElement.id)
@@ -707,7 +654,6 @@
                   });
 
                   var textID = this.parentElement.parentElement.id + "Text";
-                  console.log("text ID", textID);
                   document.getElementById(textID).innerText =
                     selectedInput.join(", ");
                   return false;
