@@ -87,10 +87,6 @@
                         opt.innerText += optionItem;
                         statusField.appendChild(opt);
                       });
-                      $(
-                        "reasonField > option[value=" + newObject[item] + "]"
-                      ).attr("selected", true);
-                      console.log("statusfirld", newObject[item]);
                       break;
                     }
                     case "reason": {
