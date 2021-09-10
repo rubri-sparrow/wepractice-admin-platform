@@ -23,7 +23,8 @@
             }
           });
 
-          const commentMatches = document.querySelectorAll("#commentField");
+          const container = document.getElementById(String(requests[i].id));
+          const commentMatches = container.querySelectorAll("#commentField");
           commentMatches.forEach((comment) => {
             obj["comment"] = comment.value;
           });
