@@ -83,6 +83,9 @@
 
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
+                        if (optionItem === newObject[item]) {
+                          opt.selected = true;
+                        }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
                         statusField.appendChild(opt);
@@ -103,17 +106,12 @@
                         console.log("working");
                         let opt = document.createElement("option");
                         if (optionItem === newObject[item]) {
-                          console.log("hahahh");
                           opt.selected = true;
                         }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
                         reasonField.appendChild(opt);
                       });
-
-                      document.getElementById("reasonField").value =
-                        newObject[item];
-                      console.log("reasonfrild", newObject[item]);
                       break;
                     }
 
