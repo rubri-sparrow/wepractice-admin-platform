@@ -1,59 +1,142 @@
-  updateRequestsButton.addEventListener("click", updateRequest);
-  function updateRequest() {
+  window.addEventListener("load", read_firebase);
+  function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        // let data = {
-        //   id: "2021-08-31T07:10:37.697Z",
-        //   date_time: { _seconds: 1630393837, _nanoseconds: 69700000 },
-        //   status: "",
-        //   comment: "",
-        //   client_name: "YOYOYO",
-        //   type: "Buchungsanfrage",
-        // };
-        // var functions = firebase.app().functions("europe-west1");
-        // var updateUserRequest = functions.httpsCallable("updateUserRequest");
-        // updateUserRequest({
-        //   environment: environmentGlobal,
-        //   data,
-        // });
+        loadingText.innerText = "Dein Profil wird geladen...";
+        var functions = firebase.app().functions("europe-west1");
 
-        // take the id from the div and add to object
-        // then loop through the div and take the value and add to object
+        // call Firebase function getUserRequest
 
-        var requests = Array.from(
-          document.getElementById("requestList").children
-        );
+        var getUserRequests = functions.httpsCallable("getUserRequests");
 
-        var updatedRequests = [];
+        getUserRequests({ environment: environmentGlobal })
+          .then((result) => {
+            if (comments) {
+              console.log("getUserRequest", result.data);
+            }
 
-        for (var i = 1; i < requests.length; i++) {
-          var obj = {};
+            var data = result.data;
 
-          obj["id"] = requests[i].id;
-          const container = document.getElementById(String(requests[i].id));
-          const matches = container.querySelectorAll("div select");
-          matches.forEach((opt) => {
-            if (opt.id === "reasonField") {
-              obj["reason"] = opt.value;
-            } else {
-              obj["status"] = opt.value;
+            // sort data into newest request first
+
+            var sortedData = data.sort(function (a, b) {
+              return b.date_time._seconds - a.date_time._seconds;
+            });
+
+            // create new request and reorder object to match field names on webflow
+
+            sortedData.forEach((request) => {
+              var newObject = {
+                date_time: new Date(
+                  request.date_time._seconds * 1000
+                ).toLocaleDateString("en-GB"),
+                type: request.type,
+                client_name: request.client_name,
+                reason: request.reason,
+                status: request.status,
+                comment: request.comment,
+              };
+
+              let userRequest = document.createElement("div");
+              userRequest.setAttribute("id", request.id);
+              userRequest.setAttribute("class", "request-container");
+              requestList.appendChild(userRequest);
+
+              // create each field/ component for every new request on webflow.
+
+              for (var item in newObject) {
+                if (item !== "id") {
+                  let userItem = document.createElement("div");
+                  userItem.setAttribute("id", item.id);
+                  userItem.setAttribute("class", "div-block-48");
+                  userRequest.appendChild(userItem);
+                  console.log("its wotkign");
+
+                  switch (item) {
+                    case "type":
+                    case "date_time":
+                    case "client_name": {
+                      let inputField = document.createElement("input");
+                      if (item === "date_time") {
+                        inputField.setAttribute("id", "dateField");
+                      } else if (item === "type") {
+                        inputField.setAttribute("id", "typeField");
+                      } else {
+                        inputField.setAttribute("id", "nameField");
+                      }
+                      inputField.setAttribute("class", "w-input");
+                      inputField.setAttribute("disabled", true);
+                      inputField.value = newObject[item];
+                      userItem.appendChild(inputField);
+                      break;
+                    }
+                    case "status": {
+                      const optionArray = [
+                        "First Choice",
+                        "Second Choice",
+                        "Third Choice",
+                      ];
+                      let statusField = document.createElement("select");
+                      statusField.setAttribute("id", "statusField");
+                      statusField.setAttribute("class", "w-select");
+                      userItem.appendChild(statusField);
+
+                      optionArray.forEach((optionItem) => {
+                        let opt = document.createElement("option");
+                        opt.value = optionItem;
+                        opt.innerText += optionItem;
+                        statusField.appendChild(opt);
+                      });
+                      break;
+                    }
+                    case "reason": {
+                      const optionArray = [
+                        "First Choice",
+                        "Second Choice",
+                        "Third Choice",
+                      ];
+                      let reasonField = document.createElement("select");
+                      reasonField.setAttribute("id", "reasonField");
+                      reasonField.setAttribute("class", "w-select");
+                      userItem.appendChild(reasonField);
+                      optionArray.forEach((optionItem) => {
+                        let opt = document.createElement("option");
+                        opt.value = optionItem;
+                        opt.innerText += optionItem;
+                        reasonField.appendChild(opt);
+                      });
+                      break;
+                    }
+
+                    case "comment": {
+                      console.log("step 4", item);
+                      let comment = document.createElement("textarea");
+                      comment.setAttribute("id", "commenField");
+                      userItem.appendChild(comment);
+                      break;
+                    }
+                  }
+                }
+              }
+            });
+          })
+
+          .catch((error) => {
+            // Getting the Error details.
+            loadingText.innerText =
+              "Dein Profil konnte nicht geladen werden - aktualisiere die Webseite.";
+            loadingImage.src =
+              "https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png";
+            if (comments) {
+              console.log(error.code);
+            }
+            if (comments) {
+              console.log(error.message);
+            }
+            if (comments) {
+              console.log(error.details);
             }
           });
-          updatedRequests.push(obj);
-        }
-        console.log(updatedRequests);
-
-        var functions = firebase.app().functions("europe-west1");
-        var updateUserRequest = functions.httpsCallable("updateUserRequest");
-        updateUserRequest({
-          environment: environmentGlobal,
-          data: updatedRequests,
-        });
-      } else {
-        // No user is signed in.
-        if (comments) {
-          console.log("No user");
-        }
       }
     });
   }
