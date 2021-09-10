@@ -106,8 +106,9 @@
                         reasonField.appendChild(opt);
                       });
 
-                      reasonField.value = newObject[item];
-                      console.log("reasonfrild", newObject[item]);
+                      document.getElementById("reasonField").value =
+                        newObject[item];
+                      console.log("reasonfafdfsdrild", newObject[item]);
                       break;
                     }
 
