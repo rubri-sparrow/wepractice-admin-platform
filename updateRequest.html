@@ -22,6 +22,11 @@
               obj["status"] = opt.value;
             }
           });
+
+          const commentMatches = container.querySelectorAll("commentField");
+          commentMatches.forEach((comment) => {
+            obj["comment"] = comment.value;
+          });
           updatedRequests.push(obj);
         }
 

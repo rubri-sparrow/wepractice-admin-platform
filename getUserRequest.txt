@@ -103,7 +103,6 @@
                       reasonField.setAttribute("class", "w-select");
                       userItem.appendChild(reasonField);
                       optionArray.forEach((optionItem) => {
-                        console.log("working");
                         let opt = document.createElement("option");
                         if (optionItem === newObject[item]) {
                           opt.selected = true;
@@ -116,11 +115,9 @@
                     }
 
                     case "comment": {
-                      console.log("step 4", item);
                       let comment = document.createElement("textarea");
-                      comment.setAttribute("id", "commenField");
+                      comment.setAttribute("id", "commentField");
                       comment.value = newObject[item];
-                      console.log("dddd", newObject[item]);
                       userItem.appendChild(comment);
                       break;
                     }
