@@ -109,7 +109,6 @@
                         opt.innerText += optionItem;
                         reasonField.appendChild(opt);
                       });
-                      reasonField.val(newObject[item]);
                       break;
                     }
 
