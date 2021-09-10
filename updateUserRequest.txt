@@ -29,6 +29,8 @@
           updatedRequests.push(obj);
         }
 
+        console.log(updatedRequests);
+
         var functions = firebase.app().functions("europe-west1");
         var updateUserRequest = functions.httpsCallable("updateUserRequest");
         updateUserRequest({
