@@ -55,6 +55,13 @@
                     case "type":
                     case "date_time":
                     case "client_name": {
+                      if (item === "date_time") {
+                        inputField.setAttribute("id", "dateField");
+                      } else if (item === "type") {
+                        inputField.setAttribute("id", "typeField");
+                      } else {
+                        inputField.setAttribute("id", "nameField");
+                      }
                       let inputField = document.createElement("input");
                       inputField.setAttribute("class", "w-input");
                       inputField.value = newObject[item];
