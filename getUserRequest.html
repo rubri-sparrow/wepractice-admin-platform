@@ -101,7 +101,12 @@
                       reasonField.setAttribute("class", "w-select");
                       userItem.appendChild(reasonField);
                       optionArray.forEach((optionItem) => {
+                        console.log("working");
                         let opt = document.createElement("option");
+                        if (optionItem === newObject[item]) {
+                          console.log("hahahh");
+                          opt.selected = true;
+                        }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
                         reasonField.appendChild(opt);
