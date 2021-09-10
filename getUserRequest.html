@@ -88,6 +88,8 @@
                         opt.innerText += optionItem;
                         statusField.appendChild(opt);
                       });
+                      statusField.value = newObject[item];
+                      console.log("statusfirld", newObject[item]);
                       break;
                     }
                     case "reason": {
@@ -106,6 +108,7 @@
                         opt.innerText += optionItem;
                         reasonField.appendChild(opt);
                       });
+                      reasonField.value = newObject[item];
                       break;
                     }
 
