@@ -50,13 +50,14 @@
                   userItem.setAttribute("id", item.id);
                   userItem.setAttribute("class", "div-block-48");
                   userRequest.appendChild(userItem);
+                  console.log("its wotkign");
 
                   switch (item) {
                     case "type":
                     case "date_time":
                     case "client_name": {
                       let inputField = document.createElement("input");
-                                            if (item === "date_time") {
+                      if (item === "date_time") {
                         inputField.setAttribute("id", "dateField");
                       } else if (item === "type") {
                         inputField.setAttribute("id", "typeField");
