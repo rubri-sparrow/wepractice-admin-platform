@@ -157,7 +157,7 @@
                 }
               }
               $(".w-input").each(function () {
-                $(this).datepicker.formatDate({
+                $(this).datepicker().formatDate({
                   monthNames: $.datepicker.regional["fr"].monthNames,
                 });
               });
