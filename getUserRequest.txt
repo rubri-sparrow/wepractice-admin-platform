@@ -23,15 +23,14 @@
               return b.date_time._seconds - a.date_time._seconds;
             });
 
-            console.log("rupert");
-            var i = 0;
-            console.log("i", i);
-            var j = 0;
-            console.log("j", j);
-
             // create new request and reorder object to match field names on webflow
 
             sortedData.forEach((request) => {
+              console.log("rupert");
+              var i = 0;
+              console.log("i", i);
+              var j = 0;
+              console.log("j", j);
               var newObject = {
                 date_time: new Date(
                   request.date_time._seconds * 1000
