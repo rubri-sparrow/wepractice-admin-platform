@@ -141,9 +141,6 @@
                         // $(`.w-input${i}`).datepicker({
                         //   altField: "#actualDate",
                         // });
-                        $(".w-input").each(function () {
-                          $(this).datepicker();
-                        });
                         userItem.appendChild(inputField);
                         i++;
                       } else {
@@ -152,9 +149,7 @@
                         // $(`.w-input${j}`).datepicker({
                         //   altField: "#actualDate",
                         // });
-                        $(".w-input").each(function () {
-                          $(this).datepicker();
-                        });
+
                         userItem.appendChild(inputField);
                         j++;
                       }
@@ -162,6 +157,9 @@
                   }
                 }
               }
+              $(".w-input").each(function () {
+                $(this).datepicker();
+              });
             });
           })
 
