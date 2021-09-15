@@ -142,7 +142,7 @@
                         userItem.appendChild(inputField);
                         i++;
                       } else {
-                        inputField.setAttribute("id", `dateField1${j}`);
+                        inputField.setAttribute("id", `dateField2${j}`);
                         inputField.setAttribute("class", "w-input");
                         // $(`.w-input${j}`).datepicker();
                         userItem.appendChild(inputField);
@@ -152,10 +152,9 @@
                   }
                 }
               }
-            });
-
-            $(".w-input").each(function () {
-              $(this).datepicker();
+              $(".w-input").each(function () {
+                $(this).datepicker();
+              });
             });
           })
 
