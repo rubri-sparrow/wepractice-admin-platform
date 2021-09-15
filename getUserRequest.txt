@@ -1,4 +1,4 @@
- window.addEventListener("load", read_firebase);
+  window.addEventListener("load", read_firebase);
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -158,20 +158,20 @@
               }
               $(".w-input").each(function () {
                 $(this).datepicker({
-                  monthNames: [
-                    "Januar",
-                    "Februar",
-                    "März",
-                    "April",
-                    "Mai",
-                    "Juni",
-                    "Juli",
-                    "August",
-                    "September",
-                    "Oktober",
-                    "November",
-                    "Dezember",
-                  ],
+                  // monthNames: [
+                  //   "Januar",
+                  //   "Februar",
+                  //   "März",
+                  //   "April",
+                  //   "Mai",
+                  //   "Juni",
+                  //   "Juli",
+                  //   "August",
+                  //   "September",
+                  //   "Oktober",
+                  //   "November",
+                  //   "Dezember",
+                  // ],
                   dateFormat: "dd-mm-yy",
                 });
               });
