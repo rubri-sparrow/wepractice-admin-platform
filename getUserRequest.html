@@ -134,7 +134,7 @@
                       console.log("rupert");
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", "dateField1");
+                        inputField.setAttribute("id", `#dateField1 ${item.id}`);
                         inputField.setAttribute("class", "w-input");
                         inputField.setAttribute("class", item.id);
                         $(`#dateField1 ${item.id}`).datepicker({
@@ -142,7 +142,7 @@
                         });
                         userItem.appendChild(inputField);
                       } else {
-                        inputField.setAttribute("id", "dateField2");
+                        inputField.setAttribute("id", `#dateField2 ${item.id}`);
                         inputField.setAttribute("class", "w-input");
                         $(`#dateField2 ${item.id}`).datepicker({
                           altField: "#actualDate",
