@@ -136,15 +136,15 @@
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField1");
                         inputField.setAttribute("class", "w-input");
-                        $("#dateField1").datepicker({
+                        inputField.setAttribute("class", item.id);
+                        $(`#dateField1 ${item.id}`).datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
                       } else {
                         inputField.setAttribute("id", "dateField2");
                         inputField.setAttribute("class", "w-input");
-                        console.log($(this));
-                        $("#dateField2").datepicker({
+                        $(`#dateField2 ${item.id}`).datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
