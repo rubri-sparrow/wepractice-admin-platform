@@ -1,4 +1,4 @@
-  window.addEventListener("load", read_firebase);
+ window.addEventListener("load", read_firebase);
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -172,6 +172,7 @@
                     "November",
                     "Dezember",
                   ],
+                  dateFormat: "dd-mm-yy",
                 });
               });
             });
