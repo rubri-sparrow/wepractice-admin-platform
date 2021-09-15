@@ -136,45 +136,49 @@
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", `dateField1`);
                         inputField.setAttribute("class", `w-input ${i}`);
-                        $(`.w-input ${i}`).datepicker({
-                          monthNames: [
-                            "Januar",
-                            "Februar",
-                            "März",
-                            "April",
-                            "Mai",
-                            "Juni",
-                            "Juli",
-                            "August",
-                            "September",
-                            "Oktober",
-                            "November",
-                            "Dezember",
-                          ],
-                          dateFormat: "dd/mm/yy",
-                        });
+                        $(`.w-input ${i}`)
+                          .$(this)
+                          .datepicker({
+                            monthNames: [
+                              "Januar",
+                              "Februar",
+                              "März",
+                              "April",
+                              "Mai",
+                              "Juni",
+                              "Juli",
+                              "August",
+                              "September",
+                              "Oktober",
+                              "November",
+                              "Dezember",
+                            ],
+                            dateFormat: "dd/mm/yy",
+                          });
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", `dateField2`);
                         inputField.setAttribute("class", `w-input ${j}`);
-                        $(`.w-input ${j}`).datepicker({
-                          monthNames: [
-                            "Januar",
-                            "Februar",
-                            "März",
-                            "April",
-                            "Mai",
-                            "Juni",
-                            "Juli",
-                            "August",
-                            "September",
-                            "Oktober",
-                            "November",
-                            "Dezember",
-                          ],
-                          dateFormat: "dd/mm/yy",
-                        });
+                        $(`.w-input ${j}`)
+                          .$(this)
+                          .datepicker({
+                            monthNames: [
+                              "Januar",
+                              "Februar",
+                              "März",
+                              "April",
+                              "Mai",
+                              "Juni",
+                              "Juli",
+                              "August",
+                              "September",
+                              "Oktober",
+                              "November",
+                              "Dezember",
+                            ],
+                            dateFormat: "dd/mm/yy",
+                          });
                         userItem.appendChild(inputField);
                         j++;
                       }
