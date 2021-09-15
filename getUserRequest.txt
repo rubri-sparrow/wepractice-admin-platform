@@ -1,4 +1,4 @@
-  window.addEventListener("load", read_firebase);
+ window.addEventListener("load", read_firebase);
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -32,8 +32,8 @@
                 ).toLocaleDateString("en-GB"),
                 type: request.type,
                 client_name: request.client_name,
-                // date_intro_call: request.date_time,
-                // date_session: request.date_session,
+                date_intro_call: request.date_time,
+                date_session: request.date_session,
                 // follow_up_session: request.follow_up_session,
                 reason: request.reason,
                 status: request.status,
