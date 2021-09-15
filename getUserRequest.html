@@ -157,11 +157,9 @@
                   }
                 }
               }
-              $(".w-input").each(function () {
-                $(this).datepicker().formatDate({
-                  monthNames: $.datepicker.regional["fr"].monthNames,
-                });
-              });
+            });
+            $(".w-input").each(function () {
+              $(this).datepicker($.datepicker.regional["fr"]);
             });
           })
 
