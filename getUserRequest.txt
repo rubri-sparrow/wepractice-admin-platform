@@ -120,6 +120,7 @@
                     }
 
                     case "comment_therapist": {
+                      console.log("comment_therapist");
                       let comment = document.createElement("textarea");
                       comment.setAttribute("id", "commentField");
                       comment.value = newObject[item];
@@ -133,10 +134,12 @@
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField1");
+                        inputField.setAttribute("class", "w-input");
                         $("#dateField1").datepicker();
                         dateField1.appendChild(inputField);
                       } else {
                         inputField.setAttribute("id", "dateField2");
+                        inputField.setAttribute("class", "w-input");
                         $("#dateField2").datepicker();
                         dateField2.appendChild(inputField);
                       }
