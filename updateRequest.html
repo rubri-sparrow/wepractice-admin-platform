@@ -25,7 +25,7 @@
 
           const commentMatches = container.querySelectorAll("#commentField");
           commentMatches.forEach((comment) => {
-            obj["comment"] = comment.value;
+            obj["comment_therapist"] = comment.value;
           });
           const dateIntroMatches = container.querySelectorAll(
             '[name="dateField1"]'
@@ -39,6 +39,7 @@
           dateSessionMatches.forEach((date) => {
             obj["date_session"] = date.value;
           });
+
           updatedRequests.push(obj);
         }
 
