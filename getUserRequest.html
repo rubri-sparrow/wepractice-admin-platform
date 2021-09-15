@@ -24,6 +24,12 @@
               return b.date_time._seconds - a.date_time._seconds;
             });
 
+            console.log("rupert");
+            var i = 0;
+            console.log("i", i);
+            var j = 0;
+            console.log("j", j);
+
             // create new request and reorder object to match field names on webflow
 
             sortedData.forEach((request) => {
@@ -131,11 +137,6 @@
 
                     case "date_intro_call":
                     case "date_session": {
-                      console.log("rupert");
-                      var i = 0;
-                      console.log("i", i);
-                      var j = 0;
-                      console.log("j", j);
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField111");
