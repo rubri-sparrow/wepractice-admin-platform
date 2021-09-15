@@ -137,15 +137,15 @@
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", `dateField1${i}`);
                         inputField.setAttribute("class", "w-input");
-                        $(`.w-input${i}`).datepicker({
-                          altField: "#actualDate",
-                        });
+                        // $(`.w-input${i}`).datepicker({
+                        //   altField: "#actualDate",
+                        // });
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", `dateField1${j}`);
                         inputField.setAttribute("class", "w-input");
-                        $(`.w-input${j}`).datepicker();
+                        // $(`.w-input${j}`).datepicker();
                         userItem.appendChild(inputField);
                         j++;
                       }
