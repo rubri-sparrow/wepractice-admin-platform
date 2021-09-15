@@ -158,9 +158,7 @@
               }
             });
             $(".w-input").each(function () {
-              $(this).datepicker(
-                $.datepicker.setDefaults($.datepicker.regional["de"])
-              );
+              $(this).datepicker.setDefaults($.datepicker.regional["de"]);
             });
           })
 
