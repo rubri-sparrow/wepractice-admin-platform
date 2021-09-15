@@ -134,18 +134,26 @@
                     case "date_session": {
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", "dateField111");
+                        inputField.setAttribute("id", "dateField1");
                         inputField.setAttribute("class", `w-input${i}`);
-                        $(`.w-input${i}`).datepicker({
-                          altField: "#actualDate",
+                        // $(`.w-input${i}`).datepicker({
+                        //   altField: "#actualDate",
+                        // });
+                        $(`.w-input${i}`).each(function () {
+                          console.log($(this));
+                          $(this).datepicker();
                         });
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", "dateField22");
                         inputField.setAttribute("class", `w-input${j}`);
-                        $(`.w-input${j}`).datepicker();
-                        userItem.appendChild(inputField);
+                        $(`.w-input${j}`).each(function () {
+                          console.log($(this));
+                          $(this).datepicker();
+                        });
+                        // $(`.w-input${j}`).datepicker();
+                        // userItem.appendChild(inputField);
                         j++;
                       }
                     }
