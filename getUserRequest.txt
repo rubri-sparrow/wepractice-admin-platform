@@ -133,16 +133,16 @@
                       console.log("rupert");
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", "dateField1");
-                        inputField.setAttribute("class", "w-input 123");
-                        $("w-input 123").datepicker({
+                        inputField.setAttribute("id", "dateField111");
+                        inputField.setAttribute("class", "w-input");
+                        $("#dateField111").datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
                       } else {
-                        inputField.setAttribute("id", "dateField2");
-                        inputField.setAttribute("class", "w-input 124");
-                        $(".w-input 124").datepicker({
+                        inputField.setAttribute("id", "dateField222");
+                        inputField.setAttribute("class", "w-input");
+                        $("#dateField222").datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
