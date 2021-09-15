@@ -132,6 +132,8 @@
                     case "date_session": {
                       console.log("rupert");
                       var i = 0;
+                      console.log("i", i);
+                      console.log("j", j);
                       var j = 0;
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
