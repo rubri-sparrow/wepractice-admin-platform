@@ -138,6 +138,7 @@
                         inputField.setAttribute("id", `dateField1`);
                         inputField.setAttribute("class", `w-input ${i}`);
                         $(`.w-input ${i}`).each(function () {
+                          console.log("this", $(this));
                           $(this).datepicker({
                             monthNames: [
                               "Januar",
