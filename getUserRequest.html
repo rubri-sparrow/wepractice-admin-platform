@@ -132,21 +132,25 @@
                     case "date_intro_call":
                     case "date_session": {
                       console.log("rupert");
+                      var i = 0;
+                      var j = 0;
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField111");
-                        inputField.setAttribute("class", "w-input");
-                        $("#dateField111").datepicker({
+                        inputField.setAttribute("class", `w-input${i}`);
+                        $(`.w-input${i}`).datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
+                        i++;
                       } else {
-                        inputField.setAttribute("id", "dateField222");
-                        inputField.setAttribute("class", "w-input");
-                        $("#dateField222").datepicker({
+                        inputField.setAttribute("id", "dateField22");
+                        inputField.setAttribute("class", `w-input${j}`);
+                        $(`.w-input${j}`).datepicker({
                           altField: "#actualDate",
                         });
                         userItem.appendChild(inputField);
+                        j++;
                       }
                     }
                   }
