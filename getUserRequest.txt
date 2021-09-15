@@ -120,6 +120,7 @@
                     }
 
                     case "comment": {
+                      console.log("comment");
                       let comment = document.createElement("textarea");
                       comment.setAttribute("id", "commentField");
                       comment.value = newObject[item];
@@ -129,6 +130,7 @@
 
                     case "date_intro_call":
                     case "date_session": {
+                      console.log("rupert");
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField1");
