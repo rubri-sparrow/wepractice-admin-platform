@@ -159,20 +159,7 @@
               }
               $(".w-input").each(function () {
                 $(this).datepicker({
-                  monthNames: [
-                    "Januar",
-                    "Februar",
-                    "Marts",
-                    "April",
-                    "Maj",
-                    "Juni",
-                    "Juli",
-                    "August",
-                    "September",
-                    "Oktober",
-                    "November",
-                    "December",
-                  ],
+                  monthNames: $.datepicker.regional["fr"].monthNames,
                 });
               });
             });
