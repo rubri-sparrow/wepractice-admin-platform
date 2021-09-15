@@ -26,10 +26,10 @@
 
             // create new request and reorder object to match field names on webflow
 
-            sortedData.forEach((request) => {
-              var i = 0;
-              var j = 0;
+            var i = 0;
+            var j = 0;
 
+            sortedData.forEach((request) => {
               var newObject = {
                 date_time: new Date(
                   request.date_time._seconds * 1000
