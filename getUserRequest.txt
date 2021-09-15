@@ -157,7 +157,7 @@
                 }
               }
               $(".w-input").each(function () {
-                $(this).datepicker();
+                $(this).datepicker().regional["fr"];
               });
             });
           })
