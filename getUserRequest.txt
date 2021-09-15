@@ -130,9 +130,15 @@
                     case "date_intro_call":
                     case "date_session": {
                       let inputField = document.createElement("input");
-                      comment.setAttribute("id", "dateField2");
-                      $("#dateField-2").datepicker();
-                      dateField2.appendChild(inputField);
+                      if (item === "date_intro_call") {
+                        comment.setAttribute("id", "dateField1");
+                        $("#dateField1").datepicker();
+                        dateField1.appendChild(inputField);
+                      } else {
+                        comment.setAttribute("id", "dateField2");
+                        $("#dateField2").datepicker();
+                        dateField2.appendChild(inputField);
+                      }
                     }
                   }
                 }
