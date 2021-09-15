@@ -58,7 +58,6 @@
                   userItem.setAttribute("id", item.id);
                   userItem.setAttribute("class", "div-block-48");
                   userRequest.appendChild(userItem);
-                  console.log("its wotkign");
 
                   switch (item) {
                     case "type":
@@ -135,13 +134,13 @@
                     case "date_session": {
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", `dateField1${i}`);
-                        inputField.setAttribute("class", "w-input");
+                        inputField.setAttribute("id", `dateField1`);
+                        inputField.setAttribute("class", `w-input${i}`);
                         userItem.appendChild(inputField);
                         i++;
                       } else {
-                        inputField.setAttribute("id", `dateField2${j}`);
-                        inputField.setAttribute("class", `w-input`);
+                        inputField.setAttribute("id", `dateField2`);
+                        inputField.setAttribute("class", `w-input${i}`);
                         userItem.appendChild(inputField);
                         j++;
                       }
