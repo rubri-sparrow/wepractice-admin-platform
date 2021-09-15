@@ -135,17 +135,19 @@
                     case "date_session": {
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", `dateField1${i}`);
-                        inputField.setAttribute("class", "w-input");
-                        // $(`.w-input${i}`).datepicker({
-                        //   altField: "#actualDate",
-                        // });
+                        inputField.setAttribute("id", "dateField111");
+                        inputField.setAttribute("class", `w-input${i}`);
+                        $(`.w-input${i}`).datepicker({
+                          altField: "#actualDate",
+                        });
                         userItem.appendChild(inputField);
                         i++;
                       } else {
-                        inputField.setAttribute("id", `dateField2${j}`);
-                        inputField.setAttribute("class", "w-input");
-                        // $(`.w-input${j}`).datepicker();
+                        inputField.setAttribute("id", "dateField22");
+                        inputField.setAttribute("class", `w-input${j}`);
+                        $(`.w-input${j}`).datepicker({
+                          altField: "#actualDate",
+                        });
                         userItem.appendChild(inputField);
                         j++;
                       }
@@ -155,10 +157,6 @@
               }
             });
           })
-
-          // $(".w-input").each(function () {
-          //   $(this).datepicker();
-          // });
 
           .catch((error) => {
             // Getting the Error details.
