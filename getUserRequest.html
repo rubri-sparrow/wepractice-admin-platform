@@ -136,12 +136,12 @@
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", `dateField1`);
-                        inputField.setAttribute("class", `w-input`, i);
+                        inputField.setAttribute("class", `w-input${i}`);
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", `dateField2`);
-                        inputField.setAttribute("class", `w-input`, j);
+                        inputField.setAttribute("class", `w-input ${j}`);
                         userItem.appendChild(inputField);
                         j++;
                       }
