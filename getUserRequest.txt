@@ -119,8 +119,7 @@
                       break;
                     }
 
-                    case "comment": {
-                      console.log("comment");
+                    case "comment_therapist": {
                       let comment = document.createElement("textarea");
                       comment.setAttribute("id", "commentField");
                       comment.value = newObject[item];
