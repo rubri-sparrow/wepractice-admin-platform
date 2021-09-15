@@ -28,6 +28,7 @@
             sortedData.forEach((request) => {
               var i = 0;
               var j = 0;
+
               var newObject = {
                 date_time: new Date(
                   request.date_time._seconds * 1000
@@ -152,11 +153,12 @@
                   }
                 }
               }
-              // $(".w-input").each(function () {
-              //   $(this).datepicker();
-              // });
             });
           })
+
+          // $(".w-input").each(function () {
+          //   $(this).datepicker();
+          // });
 
           .catch((error) => {
             // Getting the Error details.
