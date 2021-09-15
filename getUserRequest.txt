@@ -1,4 +1,4 @@
- window.addEventListener("load", read_firebase);
+  window.addEventListener("load", read_firebase);
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -135,12 +135,10 @@
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", "dateField1");
                         inputField.setAttribute("class", "w-input");
-                        $("#dateField1").datepicker();
                         dateField1.appendChild(inputField);
                       } else {
                         inputField.setAttribute("id", "dateField2");
                         inputField.setAttribute("class", "w-input");
-                        $("#dateField2").datepicker();
                         dateField2.appendChild(inputField);
                       }
                     }
