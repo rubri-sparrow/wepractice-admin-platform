@@ -27,11 +27,8 @@
             // create new request and reorder object to match field names on webflow
 
             sortedData.forEach((request) => {
-              console.log("rupert");
               var i = 0;
-              console.log("i", i);
               var j = 0;
-              console.log("j", j);
               var newObject = {
                 date_time: new Date(
                   request.date_time._seconds * 1000
@@ -148,9 +145,7 @@
                       } else {
                         inputField.setAttribute("id", "dateField22");
                         inputField.setAttribute("class", `w-input${j}`);
-                        $(`.w-input${j}`).datepicker({
-                          altField: "#actualDate",
-                        });
+                        $(`.w-input${j}`).datepicker();
                         userItem.appendChild(inputField);
                         j++;
                       }
