@@ -138,12 +138,14 @@
                         inputField.setAttribute("id", `dateField1${i}`);
                         inputField.setAttribute("name", `dateField1`);
                         inputField.setAttribute("class", "w-input");
+                        inputField.value = newObject[item];
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", `dateField2${j}`);
                         inputField.setAttribute("name", `dateField2`);
                         inputField.setAttribute("class", `w-input`);
+                        inputField.value = newObject[item];
                         userItem.appendChild(inputField);
                         j++;
                       }
