@@ -26,6 +26,18 @@
           commentMatches.forEach((comment) => {
             obj["comment"] = comment.value;
           });
+          const dateIntroMatches = container.querySelectorAll(
+            '[name="dateField1"]'
+          );
+          dateIntroMatches.forEach((date) => {
+            obj["date_intro_call"] = date.value;
+          });
+          const dateSessionMatches = container.querySelectorAll(
+            '[name="dateField2"]'
+          );
+          dateSessionMatches.forEach((date) => {
+            obj["date_session"] = date.value;
+          });
           updatedRequests.push(obj);
         }
 
