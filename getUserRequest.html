@@ -152,23 +152,25 @@
                 }
               }
               $(".w-input").each(function () {
-                $(this).datepicker({
-                  monthNames: [
-                    "Januar",
-                    "Februar",
-                    "März",
-                    "April",
-                    "Mai",
-                    "Juni",
-                    "Juli",
-                    "August",
-                    "September",
-                    "Oktober",
-                    "November",
-                    "Dezember",
-                  ],
-                  dateFormat: "dd/mm/yy",
-                });
+                if ($(this).attr("id") !== "dateField") {
+                  $(this).datepicker({
+                    monthNames: [
+                      "Januar",
+                      "Februar",
+                      "März",
+                      "April",
+                      "Mai",
+                      "Juni",
+                      "Juli",
+                      "August",
+                      "September",
+                      "Oktober",
+                      "November",
+                      "Dezember",
+                    ],
+                    dateFormat: "dd/mm/yy",
+                  });
+                }
               });
             });
           })
