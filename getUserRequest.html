@@ -33,9 +33,14 @@
                 ).toLocaleDateString("en-GB"),
                 type: request.type,
                 client_name: request.client_name,
+                // date_intro_call: request.date_time,
+                // date_session: request.date_session,
+                // follow_up_session: request.follow_up_session,
                 reason: request.reason,
                 status: request.status,
-                comment: request.comment,
+                comment_therapist: request.comment_therapist,
+                // session_billed_1: request.session_billed_1,
+                // session_billed_2: request.session_billed_2,
               };
 
               let userRequest = document.createElement("div");
@@ -121,6 +126,13 @@
                       comment.value = newObject[item];
                       userItem.appendChild(comment);
                       break;
+                    }
+
+                    case "date_intro_call":
+                    case "date_session": {
+                      let inputField = document.createElement("input");
+                      comment.setAttribute("id", "dateField-2");
+                      $("#dateField-2").datepicker();
                     }
                   }
                 }
