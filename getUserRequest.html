@@ -136,11 +136,13 @@
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
                         inputField.setAttribute("id", `dateField1${i}`);
+                        inputField.setAttribute("name", `dateField1`);
                         inputField.setAttribute("class", "w-input");
                         userItem.appendChild(inputField);
                         i++;
                       } else {
                         inputField.setAttribute("id", `dateField2${j}`);
+                        inputField.setAttribute("name", `dateField2`);
                         inputField.setAttribute("class", `w-input`);
                         userItem.appendChild(inputField);
                         j++;
@@ -150,7 +152,6 @@
                 }
               }
               $(".w-input").each(function () {
-                console.log($(this));
                 $(this).datepicker({
                   monthNames: [
                     "Januar",
