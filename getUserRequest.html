@@ -94,14 +94,14 @@
                     }
                     case "follow_up_session": {
                       const optionArray = ["", "Ya", "Nein"];
-                      let followUpSessionField =
+                      let followUpSessionSelect =
                         document.createElement("select");
-                      followUpSessionField.setAttribute(
+                      followUpSessionSelect.setAttribute(
                         "id",
                         "followUpSession"
                       );
-                      followUpSessionField.setAttribute("class", "w-select");
-                      userItem.appendChild(followUpSessionField);
+                      followUpSessionSelect.setAttribute("class", "w-select");
+                      userItem.appendChild(followUpSession);
 
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
@@ -110,7 +110,7 @@
                         }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
-                        followUpSessionField.appendChild(opt);
+                        followUpSessionSelect.appendChild(opt);
                       });
                       break;
                     }
@@ -120,10 +120,10 @@
                         "Second Choice",
                         "Third Choice",
                       ];
-                      let reasonField = document.createElement("select");
-                      reasonField.setAttribute("id", "reason");
-                      reasonField.setAttribute("class", "w-select");
-                      userItem.appendChild(reasonField);
+                      let reasonSelect = document.createElement("select");
+                      reasonSelect.setAttribute("id", "reason");
+                      reasonSelect.setAttribute("class", "w-select");
+                      userItem.appendChild(reasonSelect);
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
                         if (optionItem === newObject[item]) {
@@ -131,7 +131,7 @@
                         }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
-                        reasonField.appendChild(opt);
+                        reasonSelect.appendChild(opt);
                       });
                       break;
                     }
@@ -146,38 +146,38 @@
 
                     case "date_intro_call":
                     case "date_session": {
-                      let inputField = document.createElement("input");
+                      let dateInput = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", `dateIntroCall${i}`);
-                        inputField.setAttribute("name", `dateIntroCall`);
-                        inputField.setAttribute("class", "w-input");
-                        inputField.value = newObject[item];
-                        userItem.appendChild(inputField);
+                        dateInput.setAttribute("id", `dateIntroCall${i}`);
+                        dateInput.setAttribute("name", `dateIntroCall`);
+                        dateInput.setAttribute("class", "w-input");
+                        dateInput.value = newObject[item];
+                        userItem.appendChild(dateInput);
                         i++;
                       } else {
-                        inputField.setAttribute("id", `dateSession${j}`);
-                        inputField.setAttribute("name", `dateSession`);
-                        inputField.setAttribute("class", `w-input`);
-                        inputField.value = newObject[item];
-                        userItem.appendChild(inputField);
+                        dateInput.setAttribute("id", `dateSession${j}`);
+                        dateInput.setAttribute("name", `dateSession`);
+                        dateInput.setAttribute("class", `w-input`);
+                        dateInput.value = newObject[item];
+                        userItem.appendChild(dateInput);
                         j++;
                       }
                       break;
                     }
                     case "session_1_billed":
                     case "session_2_billed": {
-                      let inputDate = document.createElement("input");
-                      inputDate.setAttribute("disabled", true);
+                      let dateInput = document.createElement("input");
+                      dateInput.setAttribute("disabled", true);
                       if (item === "session_1_billed") {
-                        inputDate.setAttribute("id", `sessionBilled1`);
-                        inputDate.setAttribute("class", "w-input");
-                        inputDate.value = newObject[item];
-                        userItem.appendChild(inputDate);
+                        dateInput.setAttribute("id", `session1Billed`);
+                        dateInput.setAttribute("class", "w-input");
+                        dateInput.value = newObject[item];
+                        userItem.appendChild(dateInput);
                       } else {
-                        inputDate.setAttribute("id", `sessionBilled2`);
-                        inputDate.setAttribute("class", `w-input`);
-                        inputDate.value = newObject[item];
-                        userItem.appendChild(inputDate);
+                        dateInput.setAttribute("id", `session2Billed`);
+                        dateInput.setAttribute("class", `w-input`);
+                        dateInput.value = newObject[item];
+                        userItem.appendChild(dateInput);
                       }
                       break;
                     }
@@ -186,13 +186,11 @@
               }
               $(".w-input").each(function () {
                 if (
-                  ["date", "sessionBilled1", "sessionBilled2"].includes(
+                  ["date", "session1Billed", "session2Billed"].includes(
                     $(this).attr("id")
                   )
                 ) {
-                  console.log("its true");
                 } else {
-                  console.log("its false");
                   $(this).datepicker({
                     monthNames: [
                       "Januar",
