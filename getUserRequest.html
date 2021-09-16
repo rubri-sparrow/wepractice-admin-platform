@@ -123,7 +123,6 @@
                     }
 
                     case "comment_therapist": {
-                      console.log("comment_therapist");
                       let comment = document.createElement("textarea");
                       comment.setAttribute("id", "commentField");
                       comment.value = newObject[item];
@@ -139,7 +138,6 @@
                         inputField.setAttribute("name", `dateField1`);
                         inputField.setAttribute("class", "w-input");
                         inputField.value = newObject[item];
-                        console.log("1", newObject[item]);
                         userItem.appendChild(inputField);
                         i++;
                       } else {
@@ -178,7 +176,9 @@
                     "dateField" || "sessionBilled1" || "sessionBilled2",
                   ].includes($(this).attr("id"))
                 ) {
+                  console.log("its true");
                 } else {
+                  console.log("its false");
                   $(this).datepicker({
                     monthNames: [
                       "Januar",
