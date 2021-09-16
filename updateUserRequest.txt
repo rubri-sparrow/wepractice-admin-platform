@@ -59,6 +59,8 @@
         updateUserRequest({
           environment: environmentGlobal,
           data: updatedRequests,
+        }).then((result) => {
+          console.log(result);
         });
       } else {
         // No user is signed in.
