@@ -174,9 +174,11 @@
               }
               $(".w-input").each(function () {
                 if (
-                  $(this).attr("id") !==
-                  ("dateField" || "sessionBilled1" || "sessionBilled2")
+                  [
+                    "dateField" || "sessionBilled1" || "sessionBilled2",
+                  ].includes($(this).attr("id"))
                 ) {
+                } else {
                   $(this).datepicker({
                     monthNames: [
                       "Januar",
