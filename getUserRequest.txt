@@ -150,6 +150,7 @@
                         userItem.appendChild(inputField);
                         j++;
                       }
+                      break;
                     }
                     case "session_1_billed":
                     case "session_2_billed": {
@@ -165,6 +166,7 @@
                         inputDate.value = newObject[item];
                         userItem.appendChild(inputDate);
                       }
+                      break;
                     }
                   }
                 }

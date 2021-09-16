@@ -1,219 +1,70 @@
-  window.addEventListener("load", read_firebase);
-  function read_firebase() {
+  updateRequestsButton.addEventListener("click", updateRequest);
+  function updateRequest() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        loadingText.innerText = "Dein Profil wird geladen...";
-        var functions = firebase.app().functions("europe-west1");
+        var requests = Array.from(
+          document.getElementById("requestList").children
+        );
 
-        // call Firebase function getUserRequest
+        var updatedRequests = [];
 
-        var getUserRequests = functions.httpsCallable("getUserRequests");
+        for (var i = 2; i < requests.length; i++) {
+          var obj = {};
 
-        getUserRequests({ environment: environmentGlobal })
-          .then((result) => {
-            if (comments) {
-              console.log("getUserRequest", result.data);
-            }
-
-            var data = result.data;
-
-            // sort data into newest request first
-
-            var sortedData = data.sort(function (a, b) {
-              return b.date_time._seconds - a.date_time._seconds;
-            });
-
-            // create new request and reorder object to match field names on webflow
-
-            var i = 0;
-            var j = 0;
-
-            sortedData.forEach((request) => {
-              var newObject = {
-                date_time: new Date(
-                  request.date_time._seconds * 1000
-                ).toLocaleDateString("en-GB"),
-                type: request.type,
-                client_name: request.client_name,
-                date_intro_call: request.date_intro_call,
-                date_session: request.date_session,
-                follow_up_session: request.follow_up_session,
-                reason: request.reason,
-                // status: request.status,
-                comment_therapist: request.comment_therapist,
-                session_1_billed: request.session_1_billed,
-                session_2_billed: request.session_billed_2,
-              };
-
-              let userRequest = document.createElement("div");
-              userRequest.setAttribute("id", request.id);
-              userRequest.setAttribute("class", "request-container");
-              requestList.appendChild(userRequest);
-
-              // create each field/ component for every new request on webflow.
-
-              for (var item in newObject) {
-                if (item !== "id") {
-                  let userItem = document.createElement("div");
-                  userItem.setAttribute("id", item.id);
-                  userItem.setAttribute("class", "div-block-48");
-                  userRequest.appendChild(userItem);
-
-                  switch (item) {
-                    case "type":
-                    case "date_time":
-                    case "client_name": {
-                      let inputField = document.createElement("input");
-                      if (item === "date_time") {
-                        inputField.setAttribute("id", "dateField");
-                      } else if (item === "type") {
-                        inputField.setAttribute("id", "typeField");
-                      } else {
-                        inputField.setAttribute("id", "nameField");
-                      }
-                      inputField.setAttribute("class", "w-input");
-                      inputField.setAttribute("disabled", true);
-                      inputField.value = newObject[item];
-                      userItem.appendChild(inputField);
-                      break;
-                    }
-                    case "follow_up_session": {
-                      const optionArray = ["", "Ya", "Nein"];
-                      let followUpSessionField =
-                        document.createElement("select");
-                      followUpSessionField.setAttribute(
-                        "id",
-                        "followUpSessionField"
-                      );
-                      followUpSessionField.setAttribute("class", "w-select");
-                      userItem.appendChild(followUpSessionField);
-
-                      optionArray.forEach((optionItem) => {
-                        let opt = document.createElement("option");
-                        if (optionItem === newObject[item]) {
-                          opt.selected = true;
-                        }
-                        opt.value = optionItem;
-                        opt.innerText += optionItem;
-                        followUpSessionField.appendChild(opt);
-                      });
-                      break;
-                    }
-                    case "reason": {
-                      const optionArray = [
-                        "First Choice",
-                        "Second Choice",
-                        "Third Choice",
-                      ];
-                      let reasonField = document.createElement("select");
-                      reasonField.setAttribute("id", "reasonField");
-                      reasonField.setAttribute("class", "w-select");
-                      userItem.appendChild(reasonField);
-                      optionArray.forEach((optionItem) => {
-                        let opt = document.createElement("option");
-                        if (optionItem === newObject[item]) {
-                          opt.selected = true;
-                        }
-                        opt.value = optionItem;
-                        opt.innerText += optionItem;
-                        reasonField.appendChild(opt);
-                      });
-                      break;
-                    }
-
-                    case "comment_therapist": {
-                      console.log("comment_therapist");
-                      let comment = document.createElement("textarea");
-                      comment.setAttribute("id", "commentField");
-                      comment.value = newObject[item];
-                      userItem.appendChild(comment);
-                      break;
-                    }
-
-                    case "date_intro_call":
-                    case "date_session": {
-                      let inputField = document.createElement("input");
-                      if (item === "date_intro_call") {
-                        inputField.setAttribute("id", `dateField1${i}`);
-                        inputField.setAttribute("name", `dateField1`);
-                        inputField.setAttribute("class", "w-input");
-                        inputField.value = newObject[item];
-                        console.log("1", newObject[item]);
-                        userItem.appendChild(inputField);
-                        i++;
-                      } else {
-                        inputField.setAttribute("id", `dateField2${j}`);
-                        inputField.setAttribute("name", `dateField2`);
-                        inputField.setAttribute("class", `w-input`);
-                        inputField.value = newObject[item];
-                        console.log("2", newObject[item]);
-                        userItem.appendChild(inputField);
-                        j++;
-                      }
-                      break;
-                    }
-                    case "session_1_billed":
-                    case "session_2_billed": {
-                      let inputDate = document.createElement("input");
-                      if (item === "session_1_billed") {
-                        inputDate.setAttribute("id", `sessionBilled1`);
-                        inputDate.setAttribute("class", "w-input");
-                        inputDate.value = newObject[item];
-                        userItem.appendChild(inputDate);
-                      } else {
-                        inputDate.setAttribute("id", `sessionBilled2`);
-                        inputDate.setAttribute("class", `w-input`);
-                        inputDate.value = newObject[item];
-                        userItem.appendChild(inputDate);
-                      }
-                      break;
-                    }
-                  }
-                }
-              }
-              $(".w-input").each(function () {
-                if (
-                  $(this).attr("id") !==
-                  ("dateField" || "sessionBilled1" || "sessionBilled2")
-                ) {
-                  $(this).datepicker({
-                    monthNames: [
-                      "Januar",
-                      "Februar",
-                      "März",
-                      "April",
-                      "Mai",
-                      "Juni",
-                      "Juli",
-                      "August",
-                      "September",
-                      "Oktober",
-                      "November",
-                      "Dezember",
-                    ],
-                    dateFormat: "dd/mm/yy",
-                  });
-                }
-              });
-            });
-          })
-
-          .catch((error) => {
-            // Getting the Error details.
-            loadingText.innerText =
-              "Dein Profil konnte nicht geladen werden - aktualisiere die Webseite.";
-            loadingImage.src =
-              "https://uploads-ssl.webflow.com/60cc97227f4df723825f11e4/60e80aa059b256e42569b7be_outline_error_outline_white_24dp.png";
-            if (comments) {
-              console.log(error.code);
-            }
-            if (comments) {
-              console.log(error.message);
-            }
-            if (comments) {
-              console.log(error.details);
+          obj["id"] = requests[i].id;
+          const container = document.getElementById(String(requests[i].id));
+          const matches = container.querySelectorAll("div select");
+          matches.forEach((opt) => {
+            if (opt.id === "reasonField") {
+              obj["reason"] = opt.value;
+            } else {
+              obj["follow_up_session"] = opt.value;
             }
           });
+
+          const commentMatches = container.querySelectorAll("#commentField");
+          commentMatches.forEach((comment) => {
+            obj["comment_therapist"] = comment.value;
+          });
+          const dateIntroMatches = container.querySelectorAll(
+            '[name="dateField1"]'
+          );
+          dateIntroMatches.forEach((date) => {
+            obj["date_intro_call"] = date.value;
+          });
+          const dateSessionMatches = container.querySelectorAll(
+            '[name="dateField2"]'
+          );
+          dateSessionMatches.forEach((date) => {
+            obj["date_session"] = date.value;
+          });
+          const session1BilledMatches =
+            container.querySelectorAll("#sessionBilled1");
+          session1BilledMatches.forEach((session) => {
+            obj["session_billed_1"] = session.value;
+          });
+          const session2BilledMatches =
+            container.querySelectorAll("#sessionBilled1");
+          session2BilledMatche.forEach((session) => {
+            obj["session_billed_1"] = session.value;
+          });
+
+          updatedRequests.push(obj);
+        }
+
+        console.log(updatedRequests);
+
+        var functions = firebase.app().functions("europe-west1");
+        var updateUserRequest = functions.httpsCallable("updateUserRequest");
+        updateUserRequest({
+          environment: environmentGlobal,
+          data: updatedRequests,
+        });
+      } else {
+        // No user is signed in.
+        if (comments) {
+          console.log("No user");
+        }
       }
     });
   }
