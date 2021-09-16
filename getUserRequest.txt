@@ -56,7 +56,15 @@
                 if (item !== "id") {
                   let userItem = document.createElement("div");
                   userItem.setAttribute("id", item.id);
-                  userItem.setAttribute("class", "div-block-48");
+                  if (
+                    ["date_time", "date_intro_call", "date_session"].includes(
+                      item
+                    )
+                  ) {
+                    userItem.setAttribute("class", "divboxdate");
+                  } else {
+                    userItem.setAttribute("class", "div-block-48");
+                  }
                   userRequest.appendChild(userItem);
 
                   switch (item) {
@@ -107,10 +115,7 @@
                       ];
                       let reasonField = document.createElement("select");
                       reasonField.setAttribute("id", "reasonField");
-                      reasonField.setAttribute(
-                        "class",
-                        "select-field w-select"
-                      );
+                      reasonField.setAttribute("class", "w-select");
                       userItem.appendChild(reasonField);
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
