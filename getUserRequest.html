@@ -38,9 +38,9 @@
                 client_name: request.client_name,
                 date_intro_call: request.date_intro_call,
                 date_session: request.date_session,
-                // follow_up_session: request.follow_up_session,
+                follow_up_session: request.follow_up_session,
                 reason: request.reason,
-                status: request.status,
+                // status: request.status,
                 comment_therapist: request.comment_therapist,
                 // session_billed_1: request.session_billed_1,
                 // session_billed_2: request.session_billed_2,
@@ -78,16 +78,16 @@
                       userItem.appendChild(inputField);
                       break;
                     }
-                    case "status": {
-                      const optionArray = [
-                        "First Choice",
-                        "Second Choice",
-                        "Third Choice",
-                      ];
-                      let statusField = document.createElement("select");
-                      statusField.setAttribute("id", "statusField");
-                      statusField.setAttribute("class", "w-select");
-                      userItem.appendChild(statusField);
+                    case "follow_up_session": {
+                      const optionArray = ["Ya", "Nein"];
+                      let followUpSessionField =
+                        document.createElement("select");
+                      followUpSessionField.setAttribute(
+                        "id",
+                        "followUpSessionField"
+                      );
+                      followUpSessionField.setAttribute("class", "w-select");
+                      userItem.appendChild(followUpSessionField);
 
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
@@ -96,7 +96,7 @@
                         }
                         opt.value = optionItem;
                         opt.innerText += optionItem;
-                        statusField.appendChild(opt);
+                        followUpSessionField.appendChild(opt);
                       });
                       break;
                     }

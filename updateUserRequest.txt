@@ -18,7 +18,7 @@
             if (opt.id === "reasonField") {
               obj["reason"] = opt.value;
             } else {
-              obj["status"] = opt.value;
+              obj["follow_up_session"] = opt.value;
             }
           });
 
