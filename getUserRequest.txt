@@ -122,6 +122,7 @@
                       let reasonSelect = document.createElement("select");
                       reasonSelect.setAttribute("id", "reason");
                       reasonSelect.setAttribute("class", "w-select");
+                      reasonSelect.style.backgroundColor = "white";
                       userItem.appendChild(reasonSelect);
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
