@@ -99,7 +99,10 @@
                         "id",
                         "followUpSession"
                       );
-                      followUpSessionSelect.setAttribute("class", "w-select");
+                      followUpSessionSelect.setAttribute(
+                        "class",
+                        "w-select select-field"
+                      );
                       userItem.appendChild(followUpSessionSelect);
 
                       optionArray.forEach((optionItem) => {
@@ -121,7 +124,10 @@
                       ];
                       let reasonSelect = document.createElement("select");
                       reasonSelect.setAttribute("id", "reason");
-                      reasonSelect.setAttribute("class", "w-select");
+                      reasonSelect.setAttribute(
+                        "class",
+                        "w-select select-field"
+                      );
                       userItem.appendChild(reasonSelect);
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
