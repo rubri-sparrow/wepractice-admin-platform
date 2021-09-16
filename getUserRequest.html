@@ -42,8 +42,8 @@
                 reason: request.reason,
                 // status: request.status,
                 comment_therapist: request.comment_therapist,
-                // session_billed_1: request.session_billed_1,
-                // session_billed_2: request.session_billed_2,
+                session_billed_1: request.session_billed_1,
+                session_billed_2: request.session_billed_2,
               };
 
               let userRequest = document.createElement("div");
@@ -79,7 +79,7 @@
                       break;
                     }
                     case "follow_up_session": {
-                      const optionArray = ["Ya", "Nein"];
+                      const optionArray = ["", "Ya", "Nein"];
                       let followUpSessionField =
                         document.createElement("select");
                       followUpSessionField.setAttribute(
@@ -152,11 +152,30 @@
                         j++;
                       }
                     }
+                    case "session_billed_1":
+                    case "session_billed_2": {
+                      let inputField = document.createElement("input");
+                      if (item === "date_intro_call") {
+                        inputField.setAttribute("id", `sessionBilled1`);
+                        inputField.setAttribute("class", "w-input");
+                        inputField.value = newObject[item];
+                        userItem.appendChild(inputField);
+                      } else {
+                        inputField.setAttribute("id", `sessionBilled2`);
+                        inputField.setAttribute("name", `dateField2`);
+                        inputField.setAttribute("class", `w-input`);
+                        inputField.value = newObject[item];
+                        userItem.appendChild(inputField);
+                      }
+                    }
                   }
                 }
               }
               $(".w-input").each(function () {
-                if ($(this).attr("id") !== "dateField") {
+                if (
+                  $(this).attr("id") !==
+                  ("dateField" || "session_billed_1" || "session_billed_2")
+                ) {
                   $(this).datepicker({
                     monthNames: [
                       "Januar",
