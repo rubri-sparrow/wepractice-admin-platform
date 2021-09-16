@@ -107,7 +107,10 @@
                       ];
                       let reasonField = document.createElement("select");
                       reasonField.setAttribute("id", "reasonField");
-                      reasonField.setAttribute("class", "w-select");
+                      reasonField.setAttribute(
+                        "class",
+                        "select-field w-select"
+                      );
                       userItem.appendChild(reasonField);
                       optionArray.forEach((optionItem) => {
                         let opt = document.createElement("option");
