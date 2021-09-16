@@ -1,4 +1,4 @@
- window.addEventListener("load", read_firebase);
+  window.addEventListener("load", read_firebase);
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -15,8 +15,6 @@
             if (comments) {
               console.log("getUserRequest", result.data);
             }
-
-            loadingScreen.style.display = "none";
 
             var data = result.data;
 
@@ -215,6 +213,9 @@
                 }
               });
             });
+            setTimeout(function () {
+              loadingScreen.style.display = "none";
+            }, 5000);
           })
 
           .catch((error) => {

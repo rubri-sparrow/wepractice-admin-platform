@@ -17,8 +17,6 @@
               console.log("getUserRequest", result.data);
             }
 
-            loadingScreen.style.display = "none";
-
             var data = result.data;
 
             // sort data into newest request first
@@ -216,6 +214,9 @@
                 }
               });
             });
+            setTimeout(function () {
+              loadingScreen.style.display = "none";
+            }, 5000);
           })
 
           .catch((error) => {
