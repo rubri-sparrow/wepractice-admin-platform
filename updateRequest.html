@@ -54,6 +54,7 @@
         }
 
         console.log(updatedRequests);
+        loadingScreen.style.display = "flex";
 
         var functions = firebase.app().functions("europe-west1");
         var updateUserRequest = functions.httpsCallable("updateUserRequest");
@@ -62,6 +63,7 @@
           data: updatedRequests,
         }).then((result) => {
           console.log(result);
+          console.log(comments);
         });
       } else {
         // No user is signed in.
