@@ -58,9 +58,14 @@
                   let userItem = document.createElement("div");
                   userItem.setAttribute("id", item.id);
                   if (
-                    ["date_time", "date_intro_call", "date_session"].includes(
-                      item
-                    )
+                    [
+                      "date_time",
+                      "date_intro_call",
+                      "date_session",
+                      "session_1_billed",
+                      "session_2_billed",
+                      "follow_up_session",
+                    ].includes(item)
                   ) {
                     userItem.setAttribute("class", "divboxdate");
                   } else {
