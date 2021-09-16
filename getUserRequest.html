@@ -172,9 +172,9 @@
               }
               $(".w-input").each(function () {
                 if (
-                  [
-                    "dateField" || "sessionBilled1" || "sessionBilled2",
-                  ].includes($(this).attr("id"))
+                  ["dateField", "sessionBilled1", "sessionBilled2"].includes(
+                    $(this).attr("id")
+                  )
                 ) {
                   console.log("its true");
                 } else {
