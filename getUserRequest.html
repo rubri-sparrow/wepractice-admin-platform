@@ -3,6 +3,7 @@
   function read_firebase() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        loadingScreen.style.display = "flex";
         loadingText.innerText = "Dein Profil wird geladen...";
         var functions = firebase.app().functions("europe-west1");
 
@@ -15,6 +16,8 @@
             if (comments) {
               console.log("getUserRequest", result.data);
             }
+
+            loadingScreen.style.display = "none";
 
             var data = result.data;
 
