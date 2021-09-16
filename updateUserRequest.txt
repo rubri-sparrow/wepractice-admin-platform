@@ -16,25 +16,25 @@
           const container = document.getElementById(String(requests[i].id));
           const matches = container.querySelectorAll("div select");
           matches.forEach((opt) => {
-            if (opt.id === "reasonField") {
+            if (opt.id === "reason") {
               obj["reason"] = opt.value;
             } else {
               obj["follow_up_session"] = opt.value;
             }
           });
 
-          const commentMatches = container.querySelectorAll("#commentField");
+          const commentMatches = container.querySelectorAll("#comment");
           commentMatches.forEach((comment) => {
             obj["comment_therapist"] = comment.value;
           });
           const dateIntroMatches = container.querySelectorAll(
-            '[name="dateField1"]'
+            '[name="dateIntroCall"]'
           );
           dateIntroMatches.forEach((date) => {
             obj["date_intro_call"] = date.value;
           });
           const dateSessionMatches = container.querySelectorAll(
-            '[name="dateField2"]'
+            '[name="dateSession"]'
           );
           dateSessionMatches.forEach((date) => {
             obj["date_session"] = date.value;

@@ -80,11 +80,11 @@
                     case "client_name": {
                       let inputField = document.createElement("input");
                       if (item === "date_time") {
-                        inputField.setAttribute("id", "dateField");
+                        inputField.setAttribute("id", "date");
                       } else if (item === "type") {
-                        inputField.setAttribute("id", "typeField");
+                        inputField.setAttribute("id", "type");
                       } else {
-                        inputField.setAttribute("id", "nameField");
+                        inputField.setAttribute("id", "name");
                       }
                       inputField.setAttribute("class", "w-input");
                       inputField.setAttribute("disabled", true);
@@ -98,7 +98,7 @@
                         document.createElement("select");
                       followUpSessionField.setAttribute(
                         "id",
-                        "followUpSessionField"
+                        "followUpSession"
                       );
                       followUpSessionField.setAttribute("class", "w-select");
                       userItem.appendChild(followUpSessionField);
@@ -121,7 +121,7 @@
                         "Third Choice",
                       ];
                       let reasonField = document.createElement("select");
-                      reasonField.setAttribute("id", "reasonField");
+                      reasonField.setAttribute("id", "reason");
                       reasonField.setAttribute("class", "w-select");
                       userItem.appendChild(reasonField);
                       optionArray.forEach((optionItem) => {
@@ -138,7 +138,7 @@
 
                     case "comment_therapist": {
                       let comment = document.createElement("textarea");
-                      comment.setAttribute("id", "commentField");
+                      comment.setAttribute("id", "comment");
                       comment.value = newObject[item];
                       userItem.appendChild(comment);
                       break;
@@ -148,18 +148,17 @@
                     case "date_session": {
                       let inputField = document.createElement("input");
                       if (item === "date_intro_call") {
-                        inputField.setAttribute("id", `dateField1${i}`);
-                        inputField.setAttribute("name", `dateField1`);
+                        inputField.setAttribute("id", `dateIntroCall${i}`);
+                        inputField.setAttribute("name", `dateIntroCall`);
                         inputField.setAttribute("class", "w-input");
                         inputField.value = newObject[item];
                         userItem.appendChild(inputField);
                         i++;
                       } else {
-                        inputField.setAttribute("id", `dateField2${j}`);
-                        inputField.setAttribute("name", `dateField2`);
+                        inputField.setAttribute("id", `dateSession${j}`);
+                        inputField.setAttribute("name", `dateSession`);
                         inputField.setAttribute("class", `w-input`);
                         inputField.value = newObject[item];
-                        console.log("2", newObject[item]);
                         userItem.appendChild(inputField);
                         j++;
                       }
@@ -187,7 +186,7 @@
               }
               $(".w-input").each(function () {
                 if (
-                  ["dateField", "sessionBilled1", "sessionBilled2"].includes(
+                  ["date", "sessionBilled1", "sessionBilled2"].includes(
                     $(this).attr("id")
                   )
                 ) {
