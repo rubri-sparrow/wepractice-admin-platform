@@ -4,7 +4,7 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         loadingScreen.style.display = "flex";
-        loadingText.innerText = "Dein Profil wird geladen...";
+        loadingText.innerText = "TBC...";
         var functions = firebase.app().functions("europe-west1");
 
         // call Firebase function getUserRequest

@@ -3,6 +3,8 @@
   function updateRequest() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        loadingScreen.style.display = "flex";
+        loadingText.innerText = "TBC...";
         var requests = Array.from(
           document.getElementById("requestList").children
         );
@@ -65,6 +67,7 @@
           updateError.innerText = "Dein Profil wurde erfolgreich aktualisiert.";
           updateError.style.display = "block";
           updateError.style.color = successColor;
+          loadingScreen.style.display = "none";
         });
       } else {
         // No user is signed in.
