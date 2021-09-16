@@ -41,8 +41,8 @@
                 reason: request.reason,
                 // status: request.status,
                 comment_therapist: request.comment_therapist,
-                session_billed_1: request.session_billed_1,
-                session_billed_2: request.session_billed_2,
+                session_1_billed: request.session_1_billed,
+                session_2_billed: request.session_billed_2,
               };
 
               let userRequest = document.createElement("div");
@@ -151,19 +151,19 @@
                         j++;
                       }
                     }
-                    case "session_billed_1":
-                    case "session_billed_2": {
-                      let inputField = document.createElement("input");
-                      if (item === "session_billed_1") {
-                        inputField.setAttribute("id", `sessionBilled1`);
-                        inputField.setAttribute("class", "w-input");
-                        inputField.value = newObject[item];
-                        userItem.appendChild(inputField);
+                    case "session_1_billed":
+                    case "session_2_billed": {
+                      let inputDate = document.createElement("input");
+                      if (item === "session_1_billed") {
+                        inputDate.setAttribute("id", `sessionBilled1`);
+                        inputDate.setAttribute("class", "w-input");
+                        inputDate.value = newObject[item];
+                        userItem.appendChild(inputDate);
                       } else {
-                        inputField.setAttribute("id", `sessionBilled2`);
-                        inputField.setAttribute("class", `w-input`);
-                        inputField.value = newObject[item];
-                        userItem.appendChild(inputField);
+                        inputDate.setAttribute("id", `sessionBilled2`);
+                        inputDate.setAttribute("class", `w-input`);
+                        inputDate.value = newObject[item];
+                        userItem.appendChild(inputDate);
                       }
                     }
                   }
