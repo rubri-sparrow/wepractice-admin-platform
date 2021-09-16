@@ -155,14 +155,13 @@
                     case "session_billed_1":
                     case "session_billed_2": {
                       let inputField = document.createElement("input");
-                      if (item === "date_intro_call") {
+                      if (item === "session_billed_1") {
                         inputField.setAttribute("id", `sessionBilled1`);
                         inputField.setAttribute("class", "w-input");
                         inputField.value = newObject[item];
                         userItem.appendChild(inputField);
                       } else {
                         inputField.setAttribute("id", `sessionBilled2`);
-                        inputField.setAttribute("name", `dateField2`);
                         inputField.setAttribute("class", `w-input`);
                         inputField.value = newObject[item];
                         userItem.appendChild(inputField);
@@ -174,7 +173,7 @@
               $(".w-input").each(function () {
                 if (
                   $(this).attr("id") !==
-                  ("dateField" || "session_billed_1" || "session_billed_2")
+                  ("dateField" || "sessionBilled1" || "sessionBilled2")
                 ) {
                   $(this).datepicker({
                     monthNames: [
