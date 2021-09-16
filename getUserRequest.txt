@@ -153,6 +153,7 @@
                     case "session_1_billed":
                     case "session_2_billed": {
                       let inputDate = document.createElement("input");
+                      inputDate.setAttribute("disabled", true);
                       if (item === "session_1_billed") {
                         inputDate.setAttribute("id", `sessionBilled1`);
                         inputDate.setAttribute("class", "w-input");
