@@ -4,7 +4,7 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         loadingScreen.style.display = "flex";
-        loadingText.innerText = "TBC...";
+        loadingText.innerText = "Deine Buchungen werden geladen...";
         var functions = firebase.app().functions("europe-west1");
 
         // call Firebase function getUserRequest
@@ -57,7 +57,6 @@
               for (var item in newObject) {
                 if (item !== "id") {
                   let userItem = document.createElement("div");
-                  userItem.setAttribute("id", item.id);
                   if (
                     [
                       "date_time",

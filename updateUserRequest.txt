@@ -63,7 +63,8 @@
           environment: environmentGlobal,
           data: updatedRequests,
         }).then((result) => {
-          updateError.innerText = "Dein Profil wurde erfolgreich aktualisiert.";
+          updateError.innerText =
+            "Deine Buchungen wurden erfolgreich aktualisiert.";
           updateError.style.display = "block";
           updateError.style.color = successColor;
           loadingScreen.style.display = "none";
