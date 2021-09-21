@@ -3,7 +3,7 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         loadingScreen.style.display = "flex";
-        loadingText.innerText = "TBC...";
+        loadingText.innerText = "Deine Buchungen werden aktualisiert...";
         var requests = Array.from(
           document.getElementById("requestList").children
         );
@@ -54,8 +54,6 @@
 
           updatedRequests.push(obj);
         }
-
-        console.log(updatedRequests);
 
         var functions = firebase.app().functions("europe-west1");
         var updateUserRequest = functions.httpsCallable("updateUserRequest");
