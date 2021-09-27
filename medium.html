@@ -1,0 +1,98 @@
+<script>
+  const username = "sparrowventures";
+  const RSSUrl = `https://medium.com/feed/@${username}`;
+  const RSSConverter = `https://api.rss2json.com/v1/api.json?rss_url=${RSSUrl}`;
+
+  const getMediumData = async () => {
+    const response = await fetch(RSSConverter);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    if (response.status >= 200 && response.status < 400) {
+      const data = await response.json();
+      console.log(data);
+
+      const cards = document.getElementById("cards");
+
+      data.items.forEach((blog, i) => {
+        let removeHTMLElement = blog.description.replace(
+          /<figcaption.*?<\/figcaption>/g,
+          ""
+        );
+        let strippedString = removeHTMLElement.replace(/(<([^>]+)>)/gi, "");
+        let newStr = strippedString.split(" ").slice(0, 30).join(" ") + "...";
+
+        console.log(blog.title);
+
+        const card = document.createElement("div");
+        const a = document.createElement("a");
+        const imageBlock = document.createElement("div");
+        const textBlock = document.createElement("div");
+        const image = document.createElement("img");
+        image.setAttribute("src", blog.thumbnail);
+        a.setAttribute("href", blog.link);
+        a.setAttribute("target", "_blank");
+
+        if (i === 0) {
+          card.setAttribute("class", "sample-card first-one");
+          imageBlock.setAttribute("class", "sample-image-block first-one");
+          image.setAttribute("class", "sample-image first-one");
+          textBlock.setAttribute("class", "sample-text-block first-one");
+
+          card.appendChild(imageBlock);
+          imageBlock.appendChild(a);
+          a.appendChild(image);
+
+          card.appendChild(textBlock);
+          const h3 = document.createElement("h3");
+          h3.textContent = blog.title;
+          h3.setAttribute("class", "card-heading first-one");
+
+          const p = document.createElement("p");
+          p.textContent = newStr;
+          p.setAttribute("class", "card-paragraph");
+
+          textBlock.appendChild(h3);
+          textBlock.appendChild(p);
+
+          cards.appendChild(card);
+        } else if (i % 2 == 0) {
+          card.setAttribute("class", "sample-card even-number");
+          image.setAttribute("class", "sample-image");
+
+          card.appendChild(image);
+
+          const h3 = document.createElement("h3");
+          h3.textContent = blog.title;
+          const p = document.createElement("p");
+          p.textContent = newStr;
+          p.setAttribute("class", "card-paragraph");
+
+          card.appendChild(h3);
+          card.appendChild(p);
+
+          cards.appendChild(card);
+        } else {
+          card.setAttribute("class", "sample-card odd-number");
+          image.setAttribute("class", "sample-image");
+
+          card.appendChild(image);
+
+          const h3 = document.createElement("h3");
+          h3.textContent = blog.title;
+          const p = document.createElement("p");
+          p.textContent = newStr;
+          p.setAttribute("class", "card-paragraph");
+
+          card.appendChild(h3);
+          card.appendChild(p);
+
+          cards.appendChild(card);
+        }
+      });
+    }
+  };
+  getMediumData();
+</script>

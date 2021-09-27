@@ -91,7 +91,7 @@
                       break;
                     }
                     case "follow_up_session": {
-                      const optionArray = ["", "Ya", "Nein"];
+                      const optionArray = ["", "Ja", "Nein"];
                       let followUpSessionSelect =
                         document.createElement("select");
                       followUpSessionSelect.setAttribute(
